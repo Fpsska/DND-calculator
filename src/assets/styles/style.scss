@@ -1,0 +1,25 @@
+@import './reset';
+@import './vars';
+
+// /. imports
+
+html {
+    font-size: 14px;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: inherit;
+    font-weight: 400;
+    color: $dark-color;
+    background-color: $white-color;
+    height: 100%;
+}
+
+#root,
+.App {
+    height: 100%;
+}
