@@ -1,0 +1,43 @@
+@import 'assets/styles/vars';
+
+// /. imports
+
+.button {
+
+    background-color: $white-color;
+    border-radius: 6px;
+    padding: 15px 16px;
+    transition: all .05s linear;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        cursor: url('/assets/icons/cursor_active-icon.svg'), pointer;
+    }
+
+    span {
+        font-size: 14px;
+        font-weight: 500;
+        color: $dark-color;
+    }
+}
+
+.button_operator,
+.button_number {
+    border: 1px solid $platinum-color;
+
+    &:hover {
+        border: 2px solid $light-blue-color;
+    }
+}
+
+.button_calculate {
+    background-color: $light-blue-color;
+    border: transparent;
+
+    span {
+        color: $white-color;
+    }
+}

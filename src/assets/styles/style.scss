@@ -17,9 +17,30 @@ body {
     color: $dark-color;
     background-color: $white-color;
     height: 100%;
+    cursor: url('/assets/icons/cursor_default-icon.svg'), default;
 }
 
 #root,
-.App {
+.App,
+.page {
     height: 100%;
+}
+
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// /. general-styles
+
+
+.storage {
+    flex: 0 0 240px;
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
 }
