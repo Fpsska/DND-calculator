@@ -33,6 +33,15 @@ body {
 
     &__storage {
         margin-right: 56px;
+
+        width: 240px;
+        // flex: 1 0 240px;
+    }
+
+    &__constructor {
+        // flex: 0 0 243px;
+        width: 243px;
+        height: 480px;
     }
 
     &__controls {
@@ -51,7 +60,6 @@ body {
 // /. general-styles
 
 .storage {
-    width: 240px;
 
     &__wrapper {
         display: flex;
@@ -61,8 +69,6 @@ body {
 }
 
 .constructor {
-    flex: 0 0 243px;
-    height: 480px;
 
     &__wrapper {
         border: 2px dashed $silver-sand-color;

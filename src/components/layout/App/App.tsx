@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Display from 'components/ui/Display/Display';
-
 import Button from 'components/ui/Button/Button';
+
+import Display from 'components/ui/Display/Display';
 
 import Placeholder from 'components/ui/Placeholder/Placeholder';
 
@@ -47,7 +47,7 @@ const App: React.FC = () => {
                                 </Section>
                             </div>
                         </div>
-                        <div className="constructor empty">
+                        <div className="page__constructor constructor empty">
                             <div className="constructor__wrapper">
                                 <Placeholder />
                             </div>
