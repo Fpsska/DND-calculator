@@ -30,6 +30,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &__preview {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
 }
 
 // /. general-styles
@@ -37,10 +43,38 @@ body {
 
 .storage {
     flex: 0 0 240px;
+    margin-right: 56px;
 
     &__wrapper {
         display: flex;
         flex-direction: column;
     }
 
+}
+
+.constructor {
+    flex: 0 0 243px;
+    height: 480px;
+
+    &__wrapper {
+        border: 2px dashed $silver-sand-color;
+        border-radius: 6px;
+        height: 100%;
+    }
+}
+
+.constructor.empty {
+    .constructor__wrapper {
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 58px;
+        background-color: $white-color;
+        transition: all .25s ease-in;
+
+        &:hover {
+            background-color: $alice-blue-color;
+        }
+    }
 }
