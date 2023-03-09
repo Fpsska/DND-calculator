@@ -1,0 +1,43 @@
+@import 'assets/styles/vars';
+
+// /. imports
+
+.mode-switcher {
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+        background-color: $anti-flash-white-color;
+        padding: 1px;
+    }
+
+    &__button {
+        border-radius: 5px;
+        background-color: transparent;
+        border: 1px solid transparent;
+        padding: 7px 14px;
+
+        display: flex;
+        align-items: center;
+
+        span {
+            font-size: 14px;
+            font-weight: 500;
+            color: $dark-gray-color;
+        }
+
+        svg {
+            stroke: $dark-gray-color;
+            margin-right: 8px;
+        }
+    }
+
+    &__button.active {
+        background-color: $white-color;
+        border: 1px solid $platinum-color;
+
+        svg {
+            stroke: $light-blue-color;
+        }
+    }
+}

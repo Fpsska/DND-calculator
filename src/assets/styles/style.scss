@@ -31,6 +31,16 @@ body {
     justify-content: center;
     align-items: center;
 
+    &__storage {
+        margin-right: 56px;
+    }
+
+    &__controls {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 30px;
+    }
+
     &__preview {
         display: flex;
         align-items: flex-start;
@@ -40,10 +50,8 @@ body {
 
 // /. general-styles
 
-
 .storage {
-    flex: 0 0 240px;
-    margin-right: 56px;
+    width: 240px;
 
     &__wrapper {
         display: flex;
