@@ -1,8 +1,12 @@
 import React from 'react';
 
+import Display from 'components/ui/Display/Display';
+
+import Button from 'components/ui/Button/Button';
+
 import Section from '../Section/Section';
 
-import { operators, numbers, others } from '../../../context/db';
+import { operators, numbers } from '../../../context/db';
 
 import 'assets/styles/style.scss';
 import './App.css';
@@ -15,7 +19,9 @@ const App: React.FC = () => {
             <div className="page">
                 <div className="storage">
                     <div className="storage__wrapper">
-                        <Section role="section_display" />
+                        <Section role="section_display">
+                            <Display />
+                        </Section>
                         <Section
                             role="section_operators"
                             data={operators}
@@ -24,10 +30,12 @@ const App: React.FC = () => {
                             role="section_numbers"
                             data={numbers}
                         />
-                        <Section
-                            role="section_others"
-                            data={others}
-                        />
+                        <Section role="section_others">
+                            <Button
+                                role="button_equal"
+                                symbol="="
+                            />
+                        </Section>
                     </div>
                 </div>
             </div>

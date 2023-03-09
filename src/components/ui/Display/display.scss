@@ -1,0 +1,16 @@
+@import 'assets/styles/vars';
+
+// /. imports
+
+.display {
+    background-color: $anti-flash-white-color;
+    border-radius: 6px;
+    padding: 4px 8px;
+    text-align: end;
+
+    span {
+        font-size: 36px;
+        font-weight: 800;
+        color: $dark-blue-color;
+    }
+}

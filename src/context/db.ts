@@ -1,6 +1,6 @@
-interface IcalcSymbol {
-    [key: string]: number | string;
-}
+import { IcalcSymbol } from 'types/dbTypes';
+
+// /. imports
 
 export const operators: IcalcSymbol[] = [
     {
@@ -67,5 +67,3 @@ export const numbers: IcalcSymbol[] = [
         symbol: ','
     }
 ];
-
-export const others: IcalcSymbol[] = [{ id: 1, symbol: '=' }];
