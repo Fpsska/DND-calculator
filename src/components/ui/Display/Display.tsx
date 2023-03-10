@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useAppSelector } from 'app/hooks';
 
@@ -7,13 +7,17 @@ import './display.scss';
 // /. imports
 
 const Display: React.FC = () => {
-    const { calculatedValue } = useAppSelector(state => state.mainSlice);
+    const { currentValue } = useAppSelector(state => state.mainSlice);
 
     // /. hooks
 
+    // useEffect(() => {
+    //     console.log(currentValue);
+    // }, [currentValue]);
+
     return (
         <div className="display">
-            <span>{calculatedValue}</span>
+            <span>{currentValue ? currentValue : '0'}</span>
         </div>
     );
 };
