@@ -20,6 +20,8 @@ const Section: React.FC<propTypes> = ({ role, data, children }) => {
         section_numbers: 'button_number'
     });
 
+    // /. hooks
+
     return (
         <div className={`section ${role ? role : ''}`}>
             <div className="section__wrapper">
@@ -32,7 +34,7 @@ const Section: React.FC<propTypes> = ({ role, data, children }) => {
                                 <Buttom
                                     key={btn.id}
                                     {...btn}
-                                    role={btnClasses[role]}
+                                    additionalClass={btnClasses[role]}
                                 />
                             );
                         })}

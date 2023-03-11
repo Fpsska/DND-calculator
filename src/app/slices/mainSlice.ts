@@ -8,7 +8,6 @@ import { calculateProduct } from 'utils/calculateProduct';
 // /. imports
 
 interface mainSliceTypes {
-    calculatedValue: number;
     currentValue: string;
     currentAction: string;
     a_number: string;
@@ -16,7 +15,6 @@ interface mainSliceTypes {
 }
 
 const initialState: mainSliceTypes = {
-    calculatedValue: 0,
     currentValue: '',
     currentAction: '',
     a_number: '',
@@ -102,10 +100,35 @@ const mainSlice = createSlice({
                 console.log(arithmeticOperator);
                 state.currentAction = arithmeticOperator;
             }
+        },
+        getCalculationValue(
+            state,
+            action: PayloadAction<{ operation: string; a: string; b: string }>
+        ) {
+            const { operation, a, b } = action.payload;
+            // /. payload
+
+            switch (operation) {
+                case '/':
+                    state.currentValue = calculateQuotient(a, b);
+                    break;
+                case 'x':
+                    state.currentValue = calculateProduct(a, b);
+                    break;
+                case '-':
+                    state.currentValue = calculateDifference(a, b);
+                    break;
+                case '+':
+                    state.currentValue = calculateSum(a, b);
+                    break;
+                default:
+                    return;
+            }
         }
     }
 });
 
-export const { setCurrentValue, setCurrentAction } = mainSlice.actions;
+export const { setCurrentValue, setCurrentAction, getCalculationValue } =
+    mainSlice.actions;
 
 export default mainSlice.reducer;

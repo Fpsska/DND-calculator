@@ -20,9 +20,7 @@ import './App.css';
 // /. imports
 
 const App: React.FC = () => {
-    const { calculatedValue, a_number, b_number } = useAppSelector(
-        state => state.mainSlice
-    );
+    const { a_number, b_number } = useAppSelector(state => state.mainSlice);
 
     // useEffect(() => {
     //     console.log('a', a_number);
@@ -57,7 +55,7 @@ const App: React.FC = () => {
                                 />
                                 <Section role="section_others">
                                     <Button
-                                        role="button_equal"
+                                        additionalClass="button_equal"
                                         symbol="="
                                     />
                                 </Section>
