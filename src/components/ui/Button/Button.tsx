@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useAppDispatch } from 'app/hooks';
 
-import { setCurrentValue } from 'app/slices/mainSlice';
+import { setCurrentValue, setCurrentAction } from 'app/slices/mainSlice';
 
 import './button.scss';
 
@@ -22,7 +22,9 @@ const Button: React.FC<propTypes> = ({ symbol, role }) => {
 
     const onButtonClick = (e: any): void => {
         console.log('cliked');
-        dispatch(setCurrentValue({ value: e.target.innerText }));
+        const innerTextValue = e.target.innerText;
+        dispatch(setCurrentValue({ value: innerTextValue }));
+        dispatch(setCurrentAction({ arithmeticOperator: innerTextValue }));
     };
 
     return (

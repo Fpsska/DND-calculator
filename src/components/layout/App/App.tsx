@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import { useAppSelector } from 'app/hooks';
 
 import Button from 'components/ui/Button/Button';
 
@@ -18,6 +20,18 @@ import './App.css';
 // /. imports
 
 const App: React.FC = () => {
+    const { calculatedValue, a_number, b_number } = useAppSelector(
+        state => state.mainSlice
+    );
+
+    // useEffect(() => {
+    //     console.log('a', a_number);
+    // }, [a_number]);
+
+    // useEffect(() => {
+    //     console.log('b', b_number);
+    // }, [b_number]);
+
     return (
         <div className="App">
             <div className="page">
@@ -28,6 +42,8 @@ const App: React.FC = () => {
                     <div className="page__preview">
                         <div className="page__storage storage">
                             <div className="storage__wrapper">
+                                <span>a: {a_number}</span>
+                                <span>b: {b_number}</span>
                                 <Section role="section_display">
                                     <Display />
                                 </Section>
