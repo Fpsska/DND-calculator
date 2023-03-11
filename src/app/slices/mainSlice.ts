@@ -5,6 +5,8 @@ import { calculateDifference } from 'utils/calculateDifference';
 import { calculateQuotient } from 'utils/calculateQuotient';
 import { calculateProduct } from 'utils/calculateProduct';
 
+import { convertDecimalValue } from 'utils/helpers/convertDecimalValue';
+
 // /. imports
 
 interface mainSliceTypes {
@@ -116,28 +118,38 @@ const mainSlice = createSlice({
             action: PayloadAction<{ operation: string; a: string; b: string }>
         ) {
             const { operation, a, b } = action.payload;
+
             // /. payload
 
             switch (operation) {
                 case '/':
-                    state.a_number = calculateQuotient(a, b);
-                    state.currentValue = state.a_number;
+                    state.a_number = calculateQuotient(
+                        convertDecimalValue(a),
+                        convertDecimalValue(b)
+                    );
                     break;
                 case 'x':
-                    state.a_number = calculateProduct(a, b);
-                    state.currentValue = state.a_number;
+                    state.a_number = calculateProduct(
+                        convertDecimalValue(a),
+                        convertDecimalValue(b)
+                    );
                     break;
                 case '-':
-                    state.a_number = calculateDifference(a, b);
-                    state.currentValue = state.a_number;
+                    state.a_number = calculateDifference(
+                        convertDecimalValue(a),
+                        convertDecimalValue(b)
+                    );
                     break;
                 case '+':
-                    state.a_number = calculateSum(a, b);
-                    state.currentValue = state.a_number;
+                    state.a_number = calculateSum(
+                        convertDecimalValue(a),
+                        convertDecimalValue(b)
+                    );
                     break;
                 default:
                     return;
             }
+            state.currentValue = state.a_number;
         },
         switchCalculatedStatus(state, action: PayloadAction<boolean>) {
             state.isCalculated = action.payload;
