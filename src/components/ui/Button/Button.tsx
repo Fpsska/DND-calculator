@@ -5,7 +5,8 @@ import { useAppSelector, useAppDispatch } from 'app/hooks';
 import {
     setCurrentValue,
     setCurrentAction,
-    getCalculationValue
+    getCalculationValue,
+    switchCalculatedStatus
 } from 'app/slices/mainSlice';
 
 import './button.scss';
@@ -39,6 +40,7 @@ const Button: React.FC<propTypes> = ({ symbol, additionalClass }) => {
                 b: b_number
             })
         );
+        dispatch(switchCalculatedStatus(true));
     };
 
     const onButtonClick = (e: any): void => {

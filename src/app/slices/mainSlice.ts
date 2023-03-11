@@ -8,6 +8,7 @@ import { calculateProduct } from 'utils/calculateProduct';
 // /. imports
 
 interface mainSliceTypes {
+    isCalculated: boolean;
     currentValue: string;
     currentAction: string;
     a_number: string;
@@ -15,6 +16,7 @@ interface mainSliceTypes {
 }
 
 const initialState: mainSliceTypes = {
+    isCalculated: false,
     currentValue: '',
     currentAction: '',
     a_number: '',
@@ -66,6 +68,14 @@ const mainSlice = createSlice({
                         state.a_number += value;
                         state.currentValue = state.a_number;
                     }
+                } else if (
+                    state.isCalculated &&
+                    state.a_number !== '' &&
+                    state.b_number !== ''
+                ) {
+                    state.b_number = value;
+                    state.currentValue = state.b_number;
+                    state.isCalculated = false;
                 } else {
                     if (value === '0' && state.b_number === '') {
                         return;
@@ -110,25 +120,36 @@ const mainSlice = createSlice({
 
             switch (operation) {
                 case '/':
-                    state.currentValue = calculateQuotient(a, b);
+                    state.a_number = calculateQuotient(a, b);
+                    state.currentValue = state.a_number;
                     break;
                 case 'x':
-                    state.currentValue = calculateProduct(a, b);
+                    state.a_number = calculateProduct(a, b);
+                    state.currentValue = state.a_number;
                     break;
                 case '-':
-                    state.currentValue = calculateDifference(a, b);
+                    state.a_number = calculateDifference(a, b);
+                    state.currentValue = state.a_number;
                     break;
                 case '+':
-                    state.currentValue = calculateSum(a, b);
+                    state.a_number = calculateSum(a, b);
+                    state.currentValue = state.a_number;
                     break;
                 default:
                     return;
             }
+        },
+        switchCalculatedStatus(state, action: PayloadAction<boolean>) {
+            state.isCalculated = action.payload;
         }
     }
 });
 
-export const { setCurrentValue, setCurrentAction, getCalculationValue } =
-    mainSlice.actions;
+export const {
+    setCurrentValue,
+    setCurrentAction,
+    getCalculationValue,
+    switchCalculatedStatus
+} = mainSlice.actions;
 
 export default mainSlice.reducer;
