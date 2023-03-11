@@ -45,13 +45,46 @@ const mainSlice = createSlice({
                 ','
             ];
 
+            const decimalSeparatorPattern = new RegExp(/[,]/g);
+
             if (digitsArray.includes(value)) {
                 if (state.b_number === '' && state.currentAction === '') {
-                    state.a_number += value;
-                    state.currentValue = state.a_number;
+                    if (value === '0' && state.a_number === '') {
+                        // rejecting to use zero like 1st value
+                        return;
+                    }
+                    if (
+                        // rejecting to use decimal separator more 1 time
+                        value === ',' &&
+                        decimalSeparatorPattern.test(state.a_number)
+                    ) {
+                        return;
+                    }
+                    if (value === ',') {
+                        // when decimal separator is 1st value
+                        state.a_number += `0${value}`;
+                        state.currentValue = state.a_number;
+                    } else {
+                        state.a_number += value;
+                        state.currentValue = state.a_number;
+                    }
                 } else {
-                    state.b_number += value;
-                    state.currentValue = state.b_number;
+                    if (value === '0' && state.b_number === '') {
+                        return;
+                    }
+                    if (
+                        value === ',' &&
+                        decimalSeparatorPattern.test(state.b_number)
+                    ) {
+                        return;
+                    }
+                    if (state.b_number === '' && value === ',') {
+                        state.b_number += `0${value}`;
+                        state.currentValue = state.b_number;
+                    } else {
+                        state.b_number += value;
+                        state.currentValue = state.b_number;
+                    }
                 }
                 return;
             }
