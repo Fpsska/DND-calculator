@@ -28,8 +28,6 @@ const Button: React.FC<propTypes> = ({ symbol, role, additionalClass }) => {
         state => state.mainSlice
     );
 
-    const isCalculatePossible = a_number && b_number && currentAction;
-
     // /. hooks
 
     const makeCalculation = (): void => {
@@ -46,17 +44,27 @@ const Button: React.FC<propTypes> = ({ symbol, role, additionalClass }) => {
     const onButtonClick = (e: any): void => {
         const innerTextValue = e.target.innerText;
 
-        if (role === 'number') {
-            dispatch(setCurrentValue({ value: innerTextValue }));
-            console.log('number');
-        }
-        if (role === 'action') {
-            dispatch(setCurrentAction({ arithmeticOperator: innerTextValue }));
-            console.log('action');
-        }
-        if (role === 'compute' && isCalculatePossible) {
-            makeCalculation();
-            console.log('compute');
+        switch (role) {
+            case 'number':
+                dispatch(setCurrentValue({ value: innerTextValue }));
+                console.log('number');
+                break;
+            case 'action':
+                dispatch(
+                    setCurrentAction({
+                        arithmeticOperator: innerTextValue
+                    })
+                );
+                console.log('action');
+                break;
+            case 'compute':
+                if (currentAction) {
+                    makeCalculation();
+                    console.log('compute');
+                }
+                break;
+            default:
+                return;
         }
     };
 

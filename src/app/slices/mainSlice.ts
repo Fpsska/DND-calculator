@@ -33,59 +33,38 @@ const mainSlice = createSlice({
             const { value } = action.payload;
             // /. payload
 
-            const decimalSeparatorPattern = new RegExp(/[,]/g);
-
             if (state.b_number === '' && state.currentAction === '') {
-                if (
-                    value === ',' &&
-                    decimalSeparatorPattern.test(state.a_number)
-                ) {
-                    // prevent to use decimal separator more 1 times
-                    return;
-                }
+                console.log('current operand logic');
+                if (value === ',' && state.a_number.includes(',')) return;
                 if (
                     state.a_number.charAt(0) === '0' &&
-                    !decimalSeparatorPattern.test(state.currentValue)
+                    !state.a_number.includes(',')
                 ) {
-                    // prevent to use zero more 1 times initial, use value like 01
                     state.a_number = state.a_number.substring(1);
                 }
                 if (value === ',' && state.a_number === '') {
-                    // when decimal separator is 1st value
-                    state.a_number += `0${value}`;
-                    state.currentValue = state.a_number;
-                } else {
-                    state.a_number += value;
-                    state.currentValue = state.a_number;
+                    state.a_number += '0';
                 }
-            } else if (
-                state.isCalculated &&
-                state.a_number !== '' &&
-                state.b_number !== ''
-            ) {
-                state.b_number = value;
-                state.currentValue = state.b_number;
-                state.isCalculated = false;
-            } else {
-                if (
-                    value === ',' &&
-                    decimalSeparatorPattern.test(state.b_number)
-                ) {
-                    return;
-                }
+
+                state.a_number += value;
+                state.currentValue = state.a_number;
+            }
+
+            if (state.a_number !== '' && state.currentAction !== '') {
+                console.log('previous operand logic');
+                if (value === ',' && state.b_number.includes(',')) return;
                 if (
                     state.b_number.charAt(0) === '0' &&
-                    !decimalSeparatorPattern.test(state.currentValue)
+                    !state.b_number.includes(',')
                 ) {
                     state.b_number = state.b_number.substring(1);
                 }
                 if (value === ',' && state.b_number === '') {
-                    state.b_number += `0${value}`;
-                    state.currentValue = state.b_number;
-                } else {
-                    state.b_number += value;
-                    state.currentValue = state.b_number;
+                    state.b_number += '0';
                 }
+
+                state.b_number += value;
+                state.currentValue = state.b_number;
             }
         },
         setCurrentAction(
@@ -95,7 +74,9 @@ const mainSlice = createSlice({
             const { arithmeticOperator } = action.payload;
             // /. payload
 
-            state.currentAction = arithmeticOperator;
+            if (state.a_number) {
+                state.currentAction = arithmeticOperator;
+            }
         },
         getCalculationValue(
             state,
