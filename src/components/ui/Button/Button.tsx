@@ -15,12 +15,13 @@ import './button.scss';
 
 interface propTypes {
     symbol: number | string;
+    role: string;
     additionalClass?: string;
 }
 
 // /. interfaces
 
-const Button: React.FC<propTypes> = ({ symbol, additionalClass }) => {
+const Button: React.FC<propTypes> = ({ symbol, role, additionalClass }) => {
     const dispatch = useAppDispatch();
 
     const { currentAction, a_number, b_number } = useAppSelector(
@@ -32,7 +33,6 @@ const Button: React.FC<propTypes> = ({ symbol, additionalClass }) => {
     // /. hooks
 
     const makeCalculation = (): void => {
-        console.log('makeCalculation', currentAction);
         dispatch(
             getCalculationValue({
                 operation: currentAction,
@@ -44,13 +44,19 @@ const Button: React.FC<propTypes> = ({ symbol, additionalClass }) => {
     };
 
     const onButtonClick = (e: any): void => {
-        console.log('cliked');
         const innerTextValue = e.target.innerText;
-        dispatch(setCurrentValue({ value: innerTextValue }));
-        dispatch(setCurrentAction({ arithmeticOperator: innerTextValue }));
 
-        if (innerTextValue === '=' && isCalculatePossible) {
+        if (role === 'number') {
+            dispatch(setCurrentValue({ value: innerTextValue }));
+            console.log('number');
+        }
+        if (role === 'action') {
+            dispatch(setCurrentAction({ arithmeticOperator: innerTextValue }));
+            console.log('action');
+        }
+        if (role === 'compute' && isCalculatePossible) {
             makeCalculation();
+            console.log('compute');
         }
     };
 
@@ -61,6 +67,7 @@ const Button: React.FC<propTypes> = ({ symbol, additionalClass }) => {
             className={`button ${additionalClass ? additionalClass : ''}`}
             type="button"
             onClick={e => onButtonClick(e)}
+            data-role={role}
         >
             <span>{symbol}</span>
         </button>

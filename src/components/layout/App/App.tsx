@@ -20,7 +20,9 @@ import './App.css';
 // /. imports
 
 const App: React.FC = () => {
-    const { a_number, b_number } = useAppSelector(state => state.mainSlice);
+    const { a_number, b_number, currentAction } = useAppSelector(
+        state => state.mainSlice
+    );
 
     // useEffect(() => {
     //     console.log('a', a_number);
@@ -40,6 +42,7 @@ const App: React.FC = () => {
                     <div className="page__preview">
                         <div className="page__storage storage">
                             <div className="storage__wrapper">
+                                <span>AC: {currentAction}</span>
                                 <span>a: {a_number}</span>
                                 <span>b: {b_number}</span>
                                 <Section role="section_display">
@@ -55,8 +58,9 @@ const App: React.FC = () => {
                                 />
                                 <Section role="section_others">
                                     <Button
-                                        additionalClass="button_equal"
+                                        additionalClass="button_compute"
                                         symbol="="
+                                        role="compute"
                                     />
                                 </Section>
                             </div>

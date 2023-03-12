@@ -33,70 +33,59 @@ const mainSlice = createSlice({
             const { value } = action.payload;
             // /. payload
 
-            const digitsArray: string[] = [
-                '0',
-                '1',
-                '2',
-                '3',
-                '4',
-                '5',
-                '6',
-                '7',
-                '8',
-                '9',
-                ','
-            ];
-
             const decimalSeparatorPattern = new RegExp(/[,]/g);
 
-            if (digitsArray.includes(value)) {
-                if (state.b_number === '' && state.currentAction === '') {
-                    if (value === '0' && state.a_number === '') {
-                        // rejecting to use zero like 1st value
-                        return;
-                    }
-                    if (
-                        // rejecting to use decimal separator more 1 time
-                        value === ',' &&
-                        decimalSeparatorPattern.test(state.a_number)
-                    ) {
-                        return;
-                    }
-                    if (value === ',') {
-                        // when decimal separator is 1st value
-                        state.a_number += `0${value}`;
-                        state.currentValue = state.a_number;
-                    } else {
-                        state.a_number += value;
-                        state.currentValue = state.a_number;
-                    }
-                } else if (
-                    state.isCalculated &&
-                    state.a_number !== '' &&
-                    state.b_number !== ''
+            if (state.b_number === '' && state.currentAction === '') {
+                if (
+                    value === ',' &&
+                    decimalSeparatorPattern.test(state.a_number)
                 ) {
-                    state.b_number = value;
-                    state.currentValue = state.b_number;
-                    state.isCalculated = false;
-                } else {
-                    if (value === '0' && state.b_number === '') {
-                        return;
-                    }
-                    if (
-                        value === ',' &&
-                        decimalSeparatorPattern.test(state.b_number)
-                    ) {
-                        return;
-                    }
-                    if (state.b_number === '' && value === ',') {
-                        state.b_number += `0${value}`;
-                        state.currentValue = state.b_number;
-                    } else {
-                        state.b_number += value;
-                        state.currentValue = state.b_number;
-                    }
+                    // prevent to use decimal separator more 1 times
+                    return;
                 }
-                return;
+                if (
+                    state.a_number.charAt(0) === '0' &&
+                    !decimalSeparatorPattern.test(state.currentValue)
+                ) {
+                    // prevent to use zero more 1 times initial, use value like 01
+                    state.a_number = state.a_number.substring(1);
+                }
+                if (value === ',' && state.a_number === '') {
+                    // when decimal separator is 1st value
+                    state.a_number += `0${value}`;
+                    state.currentValue = state.a_number;
+                } else {
+                    state.a_number += value;
+                    state.currentValue = state.a_number;
+                }
+            } else if (
+                state.isCalculated &&
+                state.a_number !== '' &&
+                state.b_number !== ''
+            ) {
+                state.b_number = value;
+                state.currentValue = state.b_number;
+                state.isCalculated = false;
+            } else {
+                if (
+                    value === ',' &&
+                    decimalSeparatorPattern.test(state.b_number)
+                ) {
+                    return;
+                }
+                if (
+                    state.b_number.charAt(0) === '0' &&
+                    !decimalSeparatorPattern.test(state.currentValue)
+                ) {
+                    state.b_number = state.b_number.substring(1);
+                }
+                if (value === ',' && state.b_number === '') {
+                    state.b_number += `0${value}`;
+                    state.currentValue = state.b_number;
+                } else {
+                    state.b_number += value;
+                    state.currentValue = state.b_number;
+                }
             }
         },
         setCurrentAction(
@@ -106,12 +95,7 @@ const mainSlice = createSlice({
             const { arithmeticOperator } = action.payload;
             // /. payload
 
-            const actionsArray: string[] = ['/', 'x', '+', '-'];
-
-            if (actionsArray.includes(arithmeticOperator)) {
-                console.log(arithmeticOperator);
-                state.currentAction = arithmeticOperator;
-            }
+            state.currentAction = arithmeticOperator;
         },
         getCalculationValue(
             state,
