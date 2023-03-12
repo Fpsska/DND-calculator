@@ -34,7 +34,7 @@ const mainSlice = createSlice({
             // /. payload
 
             if (state.b_number === '' && state.currentAction === '') {
-                console.log('current operand logic');
+                // current operand logic
                 if (value === ',' && state.a_number.includes(',')) return;
                 if (
                     state.a_number.charAt(0) === '0' &&
@@ -51,7 +51,7 @@ const mainSlice = createSlice({
             }
 
             if (state.a_number !== '' && state.currentAction !== '') {
-                console.log('previous operand logic');
+                // previous operand logic
                 if (value === ',' && state.b_number.includes(',')) return;
                 if (
                     state.b_number.charAt(0) === '0' &&
@@ -65,6 +65,15 @@ const mainSlice = createSlice({
 
                 state.b_number += value;
                 state.currentValue = state.b_number;
+            }
+
+            if (state.a_number && state.b_number && state.isCalculated) {
+                // logic after computed (then picked any number)
+                state.b_number = '';
+                state.a_number = '';
+                state.a_number += value;
+                state.currentValue = state.a_number;
+                state.isCalculated = false;
             }
         },
         setCurrentAction(
@@ -115,6 +124,7 @@ const mainSlice = createSlice({
                     return;
             }
             state.currentValue = state.a_number;
+            // state.isCalculated = true;
         },
         switchCalculatedStatus(state, action: PayloadAction<boolean>) {
             state.isCalculated = action.payload;

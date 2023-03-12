@@ -39,6 +39,7 @@ const Button: React.FC<propTypes> = ({ symbol, role, additionalClass }) => {
             })
         );
         dispatch(switchCalculatedStatus(true));
+        dispatch(setCurrentAction({ arithmeticOperator: '' }));
     };
 
     const onButtonClick = (e: any): void => {
