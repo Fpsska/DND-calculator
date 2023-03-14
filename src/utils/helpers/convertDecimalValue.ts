@@ -1,9 +1,12 @@
 export function convertDecimalValue(value: string): string {
-    const decimalSeparatorPattern = new RegExp(/[,]/g);
+    const isCommaPattern: boolean = value.includes(',');
+    const isDotPattern: boolean = value.includes('.');
 
-    if (decimalSeparatorPattern.test(value)) {
-        return value.replace(/,/g, '.');
-    } else {
-        return value;
+    if (isCommaPattern) {
+        return value.replace(/[,]/g, '.');
     }
+    if (isDotPattern) {
+        return value.replace(/[.]/g, ',');
+    }
+    return value;
 }
