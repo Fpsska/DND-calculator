@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { useAppSelector, useAppDispatch } from 'app/hooks';
+import { useAppDispatch } from 'app/hooks';
 
 import {
     setCurrentValue,
     setCurrentAction,
-    getCalculationValue,
-    switchCalculatedStatus
+    makeCalculation
 } from 'app/slices/mainSlice';
 
 import './button.scss';
@@ -24,23 +23,7 @@ interface propTypes {
 const Button: React.FC<propTypes> = ({ symbol, role, additionalClass }) => {
     const dispatch = useAppDispatch();
 
-    const { currentAction, a_number, b_number } = useAppSelector(
-        state => state.mainSlice
-    );
-
     // /. hooks
-
-    const makeCalculation = (): void => {
-        dispatch(
-            getCalculationValue({
-                operation: currentAction,
-                a: a_number,
-                b: b_number
-            })
-        );
-        dispatch(switchCalculatedStatus(true));
-        dispatch(setCurrentAction({ arithmeticOperator: '' }));
-    };
 
     const onButtonClick = (e: any): void => {
         const innerTextValue = e.target.innerText;
@@ -48,7 +31,7 @@ const Button: React.FC<propTypes> = ({ symbol, role, additionalClass }) => {
         switch (role) {
             case 'number':
                 dispatch(setCurrentValue({ value: innerTextValue }));
-                console.log('number');
+                // console.log('number');
                 break;
             case 'action':
                 dispatch(
@@ -56,13 +39,11 @@ const Button: React.FC<propTypes> = ({ symbol, role, additionalClass }) => {
                         arithmeticOperator: innerTextValue
                     })
                 );
-                console.log('action');
+                // console.log('action');
                 break;
             case 'compute':
-                if (currentAction) {
-                    makeCalculation();
-                    console.log('compute');
-                }
+                dispatch(makeCalculation());
+                // console.log('compute');
                 break;
             default:
                 return;
