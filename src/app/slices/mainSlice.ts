@@ -57,6 +57,11 @@ const mainSlice = createSlice({
                 return;
             }
 
+            if (!state.a_number) {
+                // allow to change action when only current operand is selected
+                state.currentAction = arithmeticOperator;
+            }
+
             if (!state.b_number) {
                 // set value of current operand as value of prev operand / reset current operand
                 state.currentAction = arithmeticOperator;
@@ -64,7 +69,11 @@ const mainSlice = createSlice({
                 state.b_number = state.a_number;
                 state.currentValue = state.b_number;
                 state.a_number = '';
-            } else {
+            } else if (
+                state.a_number &&
+                state.b_number &&
+                state.currentAction
+            ) {
                 // calc value when selected cur, prev values, action and pressed any new action button
                 state.b_number = getComputedValue(
                     state.a_number,
