@@ -41,5 +41,9 @@ export function getComputedValue(
             return '';
     }
 
-    return convertDecimalValue(String(result));
+    if (String(result) === 'Infinity' || isNaN(result)) {
+        return 'Не определено';
+    } else {
+        return convertDecimalValue(String(result));
+    }
 }

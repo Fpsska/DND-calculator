@@ -72,7 +72,7 @@ const mainSlice = createSlice({
                 state.currentAction = arithmeticOperator;
             }
 
-            if (!state.b_number) {
+            if (!state.b_number && state.a_number !== 'Не определено') {
                 // set value of current operand as value of prev operand / reset current operand
                 state.currentAction = arithmeticOperator;
 
@@ -84,7 +84,7 @@ const mainSlice = createSlice({
                 state.b_number &&
                 state.currentAction
             ) {
-                // calc value when selected cur, prev values, action and pressed any new action button
+                // auto-compute value when cur, prev values, action already selected and pressed any new action button
                 state.b_number = getComputedValue(
                     state.a_number,
                     state.b_number,
@@ -94,6 +94,12 @@ const mainSlice = createSlice({
                 state.a_number = '';
 
                 state.currentAction = arithmeticOperator;
+
+                if (state.b_number === 'Не определено') {
+                    state.a_number = '';
+                    state.currentAction = '';
+                    state.b_number = '';
+                }
             }
         },
         makeCalculation(state) {
@@ -108,6 +114,8 @@ const mainSlice = createSlice({
                 state.currentAction
             );
             state.currentValue = state.a_number;
+
+            // console.log(state.a_number);
 
             state.currentAction = '';
             state.b_number = '';
