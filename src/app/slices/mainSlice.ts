@@ -9,13 +9,15 @@ interface mainSliceTypes {
     currentAction: string;
     a_number: string; // current operand
     b_number: string; // prev operand
+    isOverwrited: boolean;
 }
 
 const initialState: mainSliceTypes = {
     currentValue: '',
     currentAction: '',
     a_number: '',
-    b_number: ''
+    b_number: '',
+    isOverwrited: false
 };
 
 const mainSlice = createSlice({
@@ -42,8 +44,16 @@ const mainSlice = createSlice({
                 state.a_number += '0';
             }
 
-            state.a_number += value;
-            state.currentValue = state.a_number;
+            if (state.isOverwrited) {
+                // overwrite result value when select any number after compute
+                state.a_number = value;
+                state.currentValue = state.a_number;
+                state.isOverwrited = false;
+            } else {
+                // default behavior (concatenation)
+                state.a_number += value;
+                state.currentValue = state.a_number;
+            }
         },
         setCurrentAction(
             state,
@@ -91,14 +101,16 @@ const mainSlice = createSlice({
                 return;
             }
 
+            state.isOverwrited = true;
             state.a_number = getComputedValue(
                 state.a_number,
                 state.b_number,
                 state.currentAction
             );
             state.currentValue = state.a_number;
-            state.b_number = '';
+
             state.currentAction = '';
+            state.b_number = '';
         }
     }
 });
