@@ -7,9 +7,15 @@
     border-radius: 6px;
     padding: 4px 8px;
     text-align: end;
+    min-height: 52px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
 
     span {
-        font-size: 36px;
+        // 15 digits
+        // font-size: 36px;
+        font-size: 19px;
         font-weight: 800;
         color: $dark-blue-color;
     }

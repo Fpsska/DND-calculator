@@ -4,29 +4,35 @@ import { getComputedValue } from 'utils/getComputedvalue';
 
 // /. imports
 
-interface mainSliceTypes {
+interface calculatorSliceTypes {
     currentValue: string;
     currentAction: string;
     a_number: string; // current operand
     b_number: string; // prev operand
     isOverwrited: boolean;
+    characterLimit: number;
 }
 
-const initialState: mainSliceTypes = {
+const initialState: calculatorSliceTypes = {
     currentValue: '',
     currentAction: '',
     a_number: '',
     b_number: '',
-    isOverwrited: false
+    isOverwrited: false,
+    characterLimit: 16
 };
 
-const mainSlice = createSlice({
+const calculatorSlice = createSlice({
     name: 'mainSlice',
     initialState,
     reducers: {
         setCurrentValue(state, action: PayloadAction<{ value: string }>) {
             const { value } = action.payload;
             // /. payload
+
+            if (state.a_number.length > state.characterLimit) {
+                return;
+            }
 
             if (value === '0' && state.a_number === '0') {
                 return;
@@ -37,9 +43,11 @@ const mainSlice = createSlice({
             ) {
                 state.a_number = state.a_number.substring(1);
             }
+
             if (value === ',' && state.a_number.includes(',')) {
                 return;
             }
+
             if (value === ',' && state.a_number === '') {
                 state.a_number += '0';
             }
@@ -68,7 +76,7 @@ const mainSlice = createSlice({
             }
 
             if (!state.a_number) {
-                // allow to change action when only current operand is selected
+                // allow to change action when only prev operand is selected
                 state.currentAction = arithmeticOperator;
             }
 
@@ -115,8 +123,6 @@ const mainSlice = createSlice({
             );
             state.currentValue = state.a_number;
 
-            // console.log(state.a_number);
-
             state.currentAction = '';
             state.b_number = '';
         }
@@ -124,6 +130,6 @@ const mainSlice = createSlice({
 });
 
 export const { setCurrentValue, setCurrentAction, makeCalculation } =
-    mainSlice.actions;
+    calculatorSlice.actions;
 
-export default mainSlice.reducer;
+export default calculatorSlice.reducer;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { useAppSelector } from 'app/hooks';
 
@@ -21,16 +21,8 @@ import './App.css';
 
 const App: React.FC = () => {
     const { a_number, b_number, currentAction } = useAppSelector(
-        state => state.mainSlice
+        state => state.calculatorSlice
     );
-
-    // useEffect(() => {
-    //     console.log('a', a_number);
-    // }, [a_number]);
-
-    // useEffect(() => {
-    //     console.log('b', b_number);
-    // }, [b_number]);
 
     return (
         <div className="App">

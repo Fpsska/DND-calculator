@@ -6,7 +6,7 @@ import {
     setCurrentValue,
     setCurrentAction,
     makeCalculation
-} from 'app/slices/mainSlice';
+} from 'app/slices/calculatorSlice';
 
 import './button.scss';
 

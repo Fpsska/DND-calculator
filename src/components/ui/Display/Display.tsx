@@ -7,7 +7,7 @@ import './display.scss';
 // /. imports
 
 const Display: React.FC = () => {
-    const { currentValue } = useAppSelector(state => state.mainSlice);
+    const { currentValue } = useAppSelector(state => state.calculatorSlice);
 
     // /. hooks
 
