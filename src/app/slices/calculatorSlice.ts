@@ -128,11 +128,21 @@ const calculatorSlice = createSlice({
 
             state.currentAction = '';
             state.b_number = '';
+        },
+        resetValues(state) {
+            state.a_number = '';
+            state.b_number = '';
+            state.currentValue = '';
+            state.currentAction = '';
         }
     }
 });
 
-export const { setCurrentValue, setCurrentAction, makeCalculation } =
-    calculatorSlice.actions;
+export const {
+    setCurrentValue,
+    setCurrentAction,
+    makeCalculation,
+    resetValues
+} = calculatorSlice.actions;
 
 export default calculatorSlice.reducer;

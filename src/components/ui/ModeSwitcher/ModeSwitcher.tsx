@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 
+import { resetValues } from 'app/slices/calculatorSlice';
 import { switchConstructorModeStatus } from 'app/slices/constructorSlice';
 
 import './mode-switcher.scss';
@@ -19,6 +20,7 @@ const ModeSwitcher: React.FC = () => {
 
     const onButtonSwitchClick = (): void => {
         dispatch(switchConstructorModeStatus(!isConstructorMode));
+        dispatch(resetValues());
     };
 
     // /. functions
@@ -32,7 +34,11 @@ const ModeSwitcher: React.FC = () => {
                             ? 'mode-switcher__button active'
                             : 'mode-switcher__button'
                     }
-                    aria-label="set runtime mode"
+                    aria-label={
+                        isConstructorMode
+                            ? 'enable runtime mode'
+                            : 'disable runtime mode'
+                    }
                     onClick={onButtonSwitchClick}
                 >
                     <svg
@@ -65,7 +71,11 @@ const ModeSwitcher: React.FC = () => {
                             ? 'mode-switcher__button active'
                             : 'mode-switcher__button'
                     }
-                    aria-label="set constructor mode"
+                    aria-label={
+                        isConstructorMode
+                            ? 'disable constructor mode'
+                            : 'enable constructor mode'
+                    }
                     onClick={onButtonSwitchClick}
                 >
                     <svg
