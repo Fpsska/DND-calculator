@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useAppDispatch } from 'app/hooks';
+import { useAppSelector, useAppDispatch } from 'app/hooks';
 
 import {
     setCurrentValue,
@@ -21,6 +21,10 @@ interface propTypes {
 // /. interfaces
 
 const Button: React.FC<propTypes> = ({ symbol, role, additionalClass }) => {
+    const { isConstructorMode } = useAppSelector(
+        state => state.constructorSlice
+    );
+
     const dispatch = useAppDispatch();
 
     // /. hooks
@@ -58,6 +62,7 @@ const Button: React.FC<propTypes> = ({ symbol, role, additionalClass }) => {
             type="button"
             onClick={e => onButtonClick(e)}
             data-role={role}
+            disabled={isConstructorMode}
         >
             <span>{symbol}</span>
         </button>

@@ -1,16 +1,39 @@
 import React from 'react';
 
+import { useAppSelector, useAppDispatch } from 'app/hooks';
+
+import { switchConstructorModeStatus } from 'app/slices/constructorSlice';
+
 import './mode-switcher.scss';
 
 // /. imports
 
 const ModeSwitcher: React.FC = () => {
+    const { isConstructorMode } = useAppSelector(
+        state => state.constructorSlice
+    );
+
+    const dispatch = useAppDispatch();
+
+    // /. hooks
+
+    const onButtonSwitchClick = (): void => {
+        dispatch(switchConstructorModeStatus(!isConstructorMode));
+    };
+
+    // /. functions
+
     return (
         <div className="mode-switcher">
             <div className="mode-switcher__wrapper">
                 <button
-                    className="mode-switcher__button"
+                    className={
+                        !isConstructorMode
+                            ? 'mode-switcher__button active'
+                            : 'mode-switcher__button'
+                    }
                     aria-label="set runtime mode"
+                    onClick={onButtonSwitchClick}
                 >
                     <svg
                         width="20"
@@ -37,8 +60,13 @@ const ModeSwitcher: React.FC = () => {
                     <span>Runtime</span>
                 </button>
                 <button
-                    className="mode-switcher__button active"
+                    className={
+                        isConstructorMode
+                            ? 'mode-switcher__button active'
+                            : 'mode-switcher__button'
+                    }
                     aria-label="set constructor mode"
+                    onClick={onButtonSwitchClick}
                 >
                     <svg
                         width="20"

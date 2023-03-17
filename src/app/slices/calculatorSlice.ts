@@ -13,6 +13,8 @@ interface calculatorSliceTypes {
     characterLimit: number;
 }
 
+// /. interfaces
+
 const initialState: calculatorSliceTypes = {
     currentValue: '',
     currentAction: '',
@@ -21,6 +23,8 @@ const initialState: calculatorSliceTypes = {
     isOverwrited: false,
     characterLimit: 16
 };
+
+// /. state
 
 const calculatorSlice = createSlice({
     name: 'mainSlice',
