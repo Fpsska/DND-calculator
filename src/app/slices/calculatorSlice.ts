@@ -70,11 +70,10 @@ const calculatorSlice = createSlice({
             const { arithmeticOperator } = action.payload;
             // /. payload
 
-            if (!state.a_number && !state.b_number) {
-                // if operands are empty
-                return;
+            if (arithmeticOperator && !state.a_number && !state.b_number) {
+                // allow to calculate with negative numbers
+                state.b_number = '0';
             }
-
             if (!state.a_number) {
                 // allow to change action when only prev operand is selected
                 state.currentAction = arithmeticOperator;
