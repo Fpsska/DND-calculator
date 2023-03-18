@@ -50,7 +50,7 @@ const Section: React.FC<propTypes> = ({ role, data, isDraggable = false }) => {
     return (
         <div
             className={`section ${role ? role : ''}`}
-            draggable={isDraggable}
+            draggable={isDraggable && isConstructorMode}
             onDragStart={onSectionDragStart}
         >
             <div className="section__wrapper">

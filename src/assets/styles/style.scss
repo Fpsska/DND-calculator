@@ -58,6 +58,14 @@ body {
     }
 }
 
+.unselectable {
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+}
+
 // /. general-styles
 
 .storage {

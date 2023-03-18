@@ -67,7 +67,7 @@ const App: React.FC = () => {
 
     return (
         <div className="App">
-            <div className="page">
+            <div className="page unselectable">
                 <div className="page__wrapper">
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <span>AC: {currentAction}</span>
