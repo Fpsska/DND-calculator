@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useAppDispatch } from 'app/hooks';
+import { useAppSelector, useAppDispatch } from 'app/hooks';
 
 import Buttom from 'components/ui/Button/Button';
 import Display from 'components/ui/Display/Display';
@@ -14,9 +14,14 @@ import './section.scss';
 interface propTypes {
     role: string;
     data?: IcalcSymbol[];
+    isDraggable?: boolean;
 }
 
-const Section: React.FC<propTypes> = ({ role, data }) => {
+const Section: React.FC<propTypes> = ({ role, data, isDraggable = false }) => {
+    const { isConstructorMode } = useAppSelector(
+        state => state.constructorSlice
+    );
+
     const [btnClasses] = useState<{ [key: string]: string }>({
         section_operators: 'button_operator',
         section_numbers: 'button_number',
@@ -27,6 +32,13 @@ const Section: React.FC<propTypes> = ({ role, data }) => {
 
     // /. hooks
 
+    const onSectionDragStart = (e: React.DragEvent): void => {
+        e.dataTransfer.setData('transferChildrenData', JSON.stringify(data));
+        e.dataTransfer.setData('transferSectionRole', role);
+
+        // componentAlias: role.substring(role.lastIndexOf('_') + 1);
+    };
+
     const isDisplay = role === 'section_display';
     const isButtons =
         role === 'section_operators' ||
@@ -36,18 +48,17 @@ const Section: React.FC<propTypes> = ({ role, data }) => {
     // /. functions
 
     return (
-        <div className={`section ${role ? role : ''}`}>
+        <div
+            className={`section ${role ? role : ''}`}
+            draggable={isDraggable}
+            onDragStart={onSectionDragStart}
+        >
             <div className="section__wrapper">
                 {
                     <>
                         {data?.map((template: IcalcSymbol) => {
                             if (isDisplay) {
-                                return (
-                                    <Display
-                                        key={template.id}
-                                        {...template}
-                                    />
-                                );
+                                return <Display key={template.id} />;
                             }
                             if (isButtons) {
                                 return (

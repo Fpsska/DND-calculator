@@ -2,6 +2,11 @@ import React from 'react';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 
+import {
+    setSectionChildrenData,
+    setSectionRole
+} from 'app/slices/constructorSlice';
+
 import Placeholder from 'components/ui/Placeholder/Placeholder';
 
 import ModeSwitcher from 'components/ui/ModeSwitcher/ModeSwitcher';
@@ -25,7 +30,29 @@ const App: React.FC = () => {
         state => state.calculatorSlice
     );
 
+    const { sectionsData } = useAppSelector(state => state.constructorSlice);
+
+    const dispatch = useAppDispatch();
+
     // /. hooks
+
+    const onSectionDragOver = (e: React.DragEvent): void => {
+        e.preventDefault();
+        // console.log('over');
+    };
+
+    const onSectionDragDrop = (e: React.DragEvent, payloadID: number): void => {
+        console.log('drop');
+        const children = e.dataTransfer.getData(
+            'transferChildrenData'
+        ) as string;
+        const role = e.dataTransfer.getData('transferSectionRole') as string;
+
+        dispatch(setSectionRole({ payloadID, role }));
+        dispatch(setSectionChildrenData({ payloadID, children }));
+    };
+
+    // /. functions
 
     return (
         <div className="App">
@@ -45,24 +72,50 @@ const App: React.FC = () => {
                                 <Section
                                     role="section_display"
                                     data={displayData}
+                                    isDraggable
                                 />
                                 <Section
                                     role="section_operators"
                                     data={operatorsData}
+                                    isDraggable
                                 />
                                 <Section
                                     role="section_numbers"
                                     data={numbersData}
+                                    isDraggable
                                 />
                                 <Section
                                     role="section_compute"
                                     data={equalData}
+                                    isDraggable
                                 />
                             </div>
                         </div>
-                        <div className="page__constructor constructor empty">
+                        <div className="page__constructor constructor ">
                             <div className="constructor__wrapper">
-                                <Placeholder />
+                                <>
+                                    {sectionsData?.map(section => {
+                                        return (
+                                            <div
+                                                key={section.id}
+                                                className="constructor__section"
+                                                onDragOver={onSectionDragOver}
+                                                onDrop={e =>
+                                                    onSectionDragDrop(
+                                                        e,
+                                                        section.id
+                                                    )
+                                                }
+                                            >
+                                                <Section
+                                                    role={section.role}
+                                                    data={section.children}
+                                                />
+                                            </div>
+                                        );
+                                    })}
+                                </>
+                                {/* <Placeholder /> */}
                             </div>
                         </div>
                     </div>
