@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 
 import {
     switchSectionHoveredStatus,
     setSectionChildrenData,
-    setSectionRole
+    setSectionRole,
+    switchPlaceholderVisibleStatus
 } from 'app/slices/constructorSlice';
 
 import Placeholder from 'components/ui/Placeholder/Placeholder';
@@ -31,29 +32,25 @@ const App: React.FC = () => {
         state => state.calculatorSlice
     );
 
-    const { sectionsData } = useAppSelector(state => state.constructorSlice);
+    const { sectionsData, isPlaceholderVisible } = useAppSelector(
+        state => state.constructorSlice
+    );
 
     const dispatch = useAppDispatch();
+    const constructorWrapperRef = useRef<HTMLDivElement>(null!);
 
     // /. hooks
 
-    const onSectionDragEnter = (payloadID: number): void => {
-        // console.log('enter');
-    };
-
     const onSectionDragLeave = (payloadID: number): void => {
-        // console.log('leave');
         dispatch(switchSectionHoveredStatus({ payloadID, status: false }));
     };
 
     const onSectionDragOver = (e: React.DragEvent, payloadID: number): void => {
         e.preventDefault();
         dispatch(switchSectionHoveredStatus({ payloadID, status: true }));
-        // console.log('over');
     };
 
     const onSectionDragDrop = (e: React.DragEvent, payloadID: number): void => {
-        console.log('drop');
         const children = e.dataTransfer.getData(
             'transferChildrenData'
         ) as string;
@@ -61,6 +58,27 @@ const App: React.FC = () => {
 
         dispatch(setSectionRole({ payloadID, role }));
         dispatch(setSectionChildrenData({ payloadID, children }));
+    };
+
+    const onWrapperDragOver = (e: React.DragEvent): void => {
+        e.preventDefault();
+        constructorWrapperRef.current.classList.add('hovered');
+    };
+
+    const onWrapperDragLeave = (): void => {
+        constructorWrapperRef.current.classList.remove('hovered');
+    };
+
+    const onWrapperDragDrop = (e: React.DragEvent): void => {
+        dispatch(switchPlaceholderVisibleStatus({ status: false }));
+
+        const children = e.dataTransfer.getData(
+            'transferChildrenData'
+        ) as string;
+        const role = e.dataTransfer.getData('transferSectionRole') as string;
+        // set to first place by initial placement
+        dispatch(setSectionRole({ payloadID: 1, role }));
+        dispatch(setSectionChildrenData({ payloadID: 1, children }));
     };
 
     // /. functions
@@ -102,55 +120,69 @@ const App: React.FC = () => {
                                 />
                             </div>
                         </div>
-                        <div className="page__constructor constructor ">
-                            <div className="constructor__wrapper">
-                                <>
-                                    {sectionsData?.map(section => {
-                                        return (
-                                            <div
-                                                key={section.id}
-                                                className={`constructor__section ${
-                                                    section.isHovered
-                                                        ? 'hovered'
-                                                        : ''
-                                                } ${
-                                                    section.children.length ===
-                                                    0
-                                                        ? 'empty'
-                                                        : ''
-                                                } `}
-                                                onDragEnter={() =>
-                                                    onSectionDragEnter(
-                                                        section.id
-                                                    )
-                                                }
-                                                onDragLeave={() =>
-                                                    onSectionDragLeave(
-                                                        section.id
-                                                    )
-                                                }
-                                                onDragOver={e =>
-                                                    onSectionDragOver(
-                                                        e,
-                                                        section.id
-                                                    )
-                                                }
-                                                onDrop={e =>
-                                                    onSectionDragDrop(
-                                                        e,
-                                                        section.id
-                                                    )
-                                                }
-                                            >
-                                                <Section
-                                                    role={section.role}
-                                                    data={section.children}
-                                                />
-                                            </div>
-                                        );
-                                    })}
-                                </>
-                                {/* <Placeholder /> */}
+                        <div
+                            className={`page__constructor constructor ${
+                                isPlaceholderVisible ? 'empty' : ''
+                            }`}
+                        >
+                            <div
+                                ref={constructorWrapperRef}
+                                className="constructor__wrapper"
+                                onDragOver={e =>
+                                    isPlaceholderVisible && onWrapperDragOver(e)
+                                }
+                                onDragLeave={() =>
+                                    isPlaceholderVisible && onWrapperDragLeave()
+                                }
+                                onDrop={e =>
+                                    isPlaceholderVisible && onWrapperDragDrop(e)
+                                }
+                            >
+                                {isPlaceholderVisible ? (
+                                    <Placeholder />
+                                ) : (
+                                    <>
+                                        {sectionsData?.map(section => {
+                                            return (
+                                                <div
+                                                    key={section.id}
+                                                    className={`constructor__section ${
+                                                        section.isHovered
+                                                            ? 'hovered'
+                                                            : ''
+                                                    } ${
+                                                        section.children
+                                                            .length === 0
+                                                            ? 'empty'
+                                                            : ''
+                                                    } `}
+                                                    onDragLeave={() =>
+                                                        onSectionDragLeave(
+                                                            section.id
+                                                        )
+                                                    }
+                                                    onDragOver={e =>
+                                                        onSectionDragOver(
+                                                            e,
+                                                            section.id
+                                                        )
+                                                    }
+                                                    onDrop={e =>
+                                                        onSectionDragDrop(
+                                                            e,
+                                                            section.id
+                                                        )
+                                                    }
+                                                >
+                                                    <Section
+                                                        role={section.role}
+                                                        data={section.children}
+                                                    />
+                                                </div>
+                                            );
+                                        })}
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>

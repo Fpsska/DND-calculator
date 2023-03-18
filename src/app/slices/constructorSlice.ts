@@ -13,6 +13,7 @@ interface constructorSliceTypes {
     isConstructorMode: boolean;
     sectionsData: IsectionData[];
     currentSectionRole: string;
+    isPlaceholderVisible: boolean;
 }
 
 const initialState: constructorSliceTypes = {
@@ -23,7 +24,8 @@ const initialState: constructorSliceTypes = {
         { id: 3, isHovered: false, children: [], role: '' },
         { id: 4, isHovered: false, children: [], role: '' }
     ],
-    currentSectionRole: ''
+    currentSectionRole: '',
+    isPlaceholderVisible: true
 };
 
 // /. state
@@ -84,6 +86,15 @@ const constructorSlice = createSlice({
                 console.log(role);
                 targetSection.role = role;
             }
+        },
+        switchPlaceholderVisibleStatus(
+            state,
+            action: PayloadAction<{ status: boolean }>
+        ) {
+            const { status } = action.payload;
+            // /. payload
+
+            state.isPlaceholderVisible = status;
         }
     }
 });
@@ -92,7 +103,8 @@ export const {
     switchConstructorModeStatus,
     switchSectionHoveredStatus,
     setSectionChildrenData,
-    setSectionRole
+    setSectionRole,
+    switchPlaceholderVisibleStatus
 } = constructorSlice.actions;
 
 export default constructorSlice.reducer;

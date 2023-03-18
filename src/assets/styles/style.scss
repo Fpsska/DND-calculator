@@ -82,11 +82,11 @@ body {
     &__wrapper {
         display: flex;
         flex-direction: column;
-
-        border: 2px dashed $silver-sand-color;
+        border: 2px dashed $light-blue-color;
         border-radius: 6px;
         height: 100%;
     }
+
 
     &__section {
 
@@ -118,9 +118,14 @@ body {
         padding: 58px;
         background-color: $white-color;
         transition: all .25s ease-in;
+        border: 2px dashed $silver-sand-color;
 
         &:hover {
             background-color: $alice-blue-color;
         }
+    }
+
+    .constructor__wrapper.hovered {
+        background-color: $alice-blue-color;
     }
 }
