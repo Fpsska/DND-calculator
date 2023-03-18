@@ -3,10 +3,14 @@
 // /. imports
 
 .section {
+    cursor: grab;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.06), 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+
     &__wrapper {
         background-color: $white-color;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.06), 0px 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 4px;
+        border-radius: inherit;
+
         padding: 4px;
 
         display: grid;
@@ -44,7 +48,7 @@
     }
 }
 
-.section_others {
+.section_compute {
     .section__wrapper {
         grid-template-columns: 1fr;
         grid-template-rows: 64px;

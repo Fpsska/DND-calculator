@@ -35,7 +35,6 @@ const Button: React.FC<propTypes> = ({ symbol, role, additionalClass }) => {
         switch (role) {
             case 'number':
                 dispatch(setCurrentValue({ value: innerTextValue }));
-                // console.log('number');
                 break;
             case 'action':
                 dispatch(
@@ -43,11 +42,9 @@ const Button: React.FC<propTypes> = ({ symbol, role, additionalClass }) => {
                         arithmeticOperator: innerTextValue
                     })
                 );
-                // console.log('action');
                 break;
             case 'compute':
                 dispatch(makeCalculation());
-                // console.log('compute');
                 break;
             default:
                 return;

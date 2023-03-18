@@ -2,7 +2,23 @@ import { IcalcSymbol } from 'types/dbTypes';
 
 // /. imports
 
-export const operators: IcalcSymbol[] = [
+export const displayData: IcalcSymbol[] = [
+    {
+        id: 1,
+        symbol: '',
+        role: 'display'
+    }
+];
+
+export const equalData: IcalcSymbol[] = [
+    {
+        id: 1,
+        symbol: '=',
+        role: 'compute'
+    }
+];
+
+export const operatorsData: IcalcSymbol[] = [
     {
         id: 1,
         symbol: '/',
@@ -25,7 +41,7 @@ export const operators: IcalcSymbol[] = [
     }
 ];
 
-export const numbers: IcalcSymbol[] = [
+export const numbersData: IcalcSymbol[] = [
     {
         id: 0,
         symbol: 7,
