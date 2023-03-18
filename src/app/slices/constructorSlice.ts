@@ -4,6 +4,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface IsectionData {
     id: number;
+    isHovered: boolean;
     children: any[];
     role: string;
 }
@@ -17,10 +18,10 @@ interface constructorSliceTypes {
 const initialState: constructorSliceTypes = {
     isConstructorMode: true,
     sectionsData: [
-        { id: 1, children: [], role: '' },
-        { id: 2, children: [], role: '' },
-        { id: 3, children: [], role: '' },
-        { id: 4, children: [], role: '' }
+        { id: 1, isHovered: false, children: [], role: '' },
+        { id: 2, isHovered: false, children: [], role: '' },
+        { id: 3, isHovered: false, children: [], role: '' },
+        { id: 4, isHovered: false, children: [], role: '' }
     ],
     currentSectionRole: ''
 };
@@ -33,6 +34,21 @@ const constructorSlice = createSlice({
     reducers: {
         switchConstructorModeStatus(state, action: PayloadAction<boolean>) {
             state.isConstructorMode = action.payload;
+        },
+        switchSectionHoveredStatus(
+            state,
+            action: PayloadAction<{ payloadID: number; status: boolean }>
+        ) {
+            const { payloadID, status } = action.payload;
+            // /. payload
+
+            const targetSection = state.sectionsData.find(
+                ({ id }) => id === payloadID
+            );
+
+            if (targetSection) {
+                targetSection.isHovered = status;
+            }
         },
         setSectionChildrenData(
             state,
@@ -74,6 +90,7 @@ const constructorSlice = createSlice({
 
 export const {
     switchConstructorModeStatus,
+    switchSectionHoveredStatus,
     setSectionChildrenData,
     setSectionRole
 } = constructorSlice.actions;

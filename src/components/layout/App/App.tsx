@@ -3,6 +3,7 @@ import React from 'react';
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 
 import {
+    switchSectionHoveredStatus,
     setSectionChildrenData,
     setSectionRole
 } from 'app/slices/constructorSlice';
@@ -36,8 +37,18 @@ const App: React.FC = () => {
 
     // /. hooks
 
-    const onSectionDragOver = (e: React.DragEvent): void => {
+    const onSectionDragEnter = (payloadID: number): void => {
+        // console.log('enter');
+    };
+
+    const onSectionDragLeave = (payloadID: number): void => {
+        // console.log('leave');
+        dispatch(switchSectionHoveredStatus({ payloadID, status: false }));
+    };
+
+    const onSectionDragOver = (e: React.DragEvent, payloadID: number): void => {
         e.preventDefault();
+        dispatch(switchSectionHoveredStatus({ payloadID, status: true }));
         // console.log('over');
     };
 
@@ -98,8 +109,32 @@ const App: React.FC = () => {
                                         return (
                                             <div
                                                 key={section.id}
-                                                className="constructor__section"
-                                                onDragOver={onSectionDragOver}
+                                                className={`constructor__section ${
+                                                    section.isHovered
+                                                        ? 'hovered'
+                                                        : ''
+                                                } ${
+                                                    section.children.length ===
+                                                    0
+                                                        ? 'empty'
+                                                        : ''
+                                                } `}
+                                                onDragEnter={() =>
+                                                    onSectionDragEnter(
+                                                        section.id
+                                                    )
+                                                }
+                                                onDragLeave={() =>
+                                                    onSectionDragLeave(
+                                                        section.id
+                                                    )
+                                                }
+                                                onDragOver={e =>
+                                                    onSectionDragOver(
+                                                        e,
+                                                        section.id
+                                                    )
+                                                }
                                                 onDrop={e =>
                                                     onSectionDragDrop(
                                                         e,

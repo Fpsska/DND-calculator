@@ -42,6 +42,7 @@ body {
         // flex: 0 0 243px;
         width: 243px;
         height: 480px;
+
     }
 
     &__controls {
@@ -71,16 +72,31 @@ body {
 .constructor {
 
     &__wrapper {
+        display: flex;
+        flex-direction: column;
+
         border: 2px dashed $silver-sand-color;
         border-radius: 6px;
         height: 100%;
     }
 
     &__section {
-        height: 100px;
 
         .section {
             height: 100%;
+            box-shadow: none;
+        }
+    }
+
+    &__section.hovered {
+        background-color: $silver-sand-color;
+    }
+
+    &__section.empty {
+        flex: 1 0 calc(100% / 4);
+
+        .section__wrapper {
+            padding: 0;
         }
     }
 }
