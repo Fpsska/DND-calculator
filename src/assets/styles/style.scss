@@ -31,7 +31,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    &__storage {
+    &__calculator {
         margin-right: 56px;
 
         width: 240px;
@@ -68,7 +68,7 @@ body {
 
 // /. general-styles
 
-.storage {
+.calculator {
 
     &__wrapper {
         display: flex;
@@ -86,7 +86,6 @@ body {
         border-radius: 6px;
         height: 100%;
     }
-
 
     &__section {
 

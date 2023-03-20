@@ -2,40 +2,57 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { operatorsData, numbersData, equalData, displayData } from 'context/db';
 
-// /. imports
+import { IcalcSectionData, IconstrSectionData } from 'types/dbTypes';
 
-interface IsectionData {
-    id: number;
-    isHovered: boolean;
-    children: any[];
-    role: string;
-}
+// /. imports
 
 interface constructorSliceTypes {
     isConstructorMode: boolean;
-    constructorSectionsData: IsectionData[];
     currentSectionRole: string;
     isPlaceholderVisible: boolean;
-    calculatorSectionsData: any[];
+    calculatorSectionsData: IcalcSectionData[];
+    constructorSectionsData: IconstrSectionData[];
 }
 
 const initialState: constructorSliceTypes = {
     isConstructorMode: true,
-    constructorSectionsData: [
-        { id: 1, isHovered: false, children: [], role: '' },
-        { id: 2, isHovered: false, children: [], role: '' },
-        { id: 3, isHovered: false, children: [], role: '' },
-        { id: 4, isHovered: false, children: [], role: '' }
-    ],
     currentSectionRole: '',
     isPlaceholderVisible: true,
     calculatorSectionsData: [
         {
-            displayData,
-            equalData,
-            numbersData,
-            operatorsData
+            id: 1,
+            isDraggable: true,
+            isSelected: false,
+            children: displayData,
+            role: 'section_display'
+        },
+        {
+            id: 4,
+            isDraggable: true,
+            isSelected: false,
+            children: operatorsData,
+            role: 'section_operators'
+        },
+        {
+            id: 3,
+            isDraggable: true,
+            isSelected: false,
+            children: numbersData,
+            role: 'section_numbers'
+        },
+        {
+            id: 2,
+            isDraggable: true,
+            isSelected: false,
+            children: equalData,
+            role: 'section_compute'
         }
+    ],
+    constructorSectionsData: [
+        { id: 1, isDraggable: false, isHovered: false, children: [], role: '' },
+        { id: 2, isDraggable: false, isHovered: false, children: [], role: '' },
+        { id: 3, isDraggable: false, isHovered: false, children: [], role: '' },
+        { id: 4, isDraggable: false, isHovered: false, children: [], role: '' }
     ]
 };
 

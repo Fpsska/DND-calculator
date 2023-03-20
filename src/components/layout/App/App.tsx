@@ -97,30 +97,16 @@ const App: React.FC = () => {
                         <ModeSwitcher />
                     </div>
                     <div className="page__preview">
-                        <div className="page__storage storage">
-                            <div className="storage__wrapper">
-                                <Section
-                                    role="section_display"
-                                    data={calculatorSectionsData[0].displayData}
-                                    isDraggable
-                                />
-                                <Section
-                                    role="section_operators"
-                                    data={
-                                        calculatorSectionsData[0].operatorsData
-                                    }
-                                    isDraggable
-                                />
-                                <Section
-                                    role="section_numbers"
-                                    data={calculatorSectionsData[0].numbersData}
-                                    isDraggable
-                                />
-                                <Section
-                                    role="section_compute"
-                                    data={calculatorSectionsData[0].equalData}
-                                    isDraggable
-                                />
+                        <div className="page__calculator calculator">
+                            <div className="calculator__wrapper">
+                                {calculatorSectionsData.map(section => {
+                                    return (
+                                        <Section
+                                            key={section.id}
+                                            {...section}
+                                        />
+                                    );
+                                })}
                             </div>
                         </div>
                         <div
@@ -178,12 +164,7 @@ const App: React.FC = () => {
                                                             )
                                                         }
                                                     >
-                                                        <Section
-                                                            role={section.role}
-                                                            data={
-                                                                section.children
-                                                            }
-                                                        />
+                                                        <Section {...section} />
                                                     </div>
                                                 );
                                             }

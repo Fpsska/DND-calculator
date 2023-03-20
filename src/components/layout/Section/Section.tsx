@@ -13,11 +13,11 @@ import './section.scss';
 
 interface propTypes {
     role: string;
-    data?: IcalcSymbol[];
-    isDraggable?: boolean;
+    children: IcalcSymbol[];
+    isDraggable: boolean;
 }
 
-const Section: React.FC<propTypes> = ({ role, data, isDraggable = false }) => {
+const Section: React.FC<propTypes> = ({ role, children, isDraggable }) => {
     const { isConstructorMode } = useAppSelector(
         state => state.constructorSlice
     );
@@ -33,7 +33,10 @@ const Section: React.FC<propTypes> = ({ role, data, isDraggable = false }) => {
     // /. hooks
 
     const onSectionDragStart = (e: React.DragEvent): void => {
-        e.dataTransfer.setData('transferChildrenData', JSON.stringify(data));
+        e.dataTransfer.setData(
+            'transferChildrenData',
+            JSON.stringify(children)
+        );
         e.dataTransfer.setData('transferSectionRole', role);
 
         // componentAlias: role.substring(role.lastIndexOf('_') + 1);
@@ -56,7 +59,7 @@ const Section: React.FC<propTypes> = ({ role, data, isDraggable = false }) => {
             <div className="section__wrapper">
                 {
                     <>
-                        {data?.map((template: IcalcSymbol) => {
+                        {children?.map((template: IcalcSymbol) => {
                             if (isDisplay) {
                                 return <Display key={template.id} />;
                             }
