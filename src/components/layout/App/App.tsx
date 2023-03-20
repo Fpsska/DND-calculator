@@ -3,11 +3,11 @@ import React, { useEffect, useRef } from 'react';
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 
 import {
-    switchConstructorModeStatus,
     switchConstrSectionHoveredStatus,
     setConstrSectionChildrenData,
     setConstrSectionRole,
-    switchPlaceholderVisibleStatus
+    switchPlaceholderVisibleStatus,
+    switchCalcSectionSelectedStatus
 } from 'app/slices/constructorSlice';
 
 import Placeholder from 'components/ui/Placeholder/Placeholder';
@@ -58,6 +58,13 @@ const App: React.FC = () => {
 
         dispatch(setConstrSectionRole({ payloadID, role }));
         dispatch(setConstrSectionChildrenData({ payloadID, children }));
+        dispatch(
+            switchConstrSectionHoveredStatus({
+                payloadID,
+                status: false
+            })
+        );
+        dispatch(switchCalcSectionSelectedStatus({ payloadRole: role }));
     };
 
     const onWrapperDragOver = (e: React.DragEvent): void => {
@@ -77,9 +84,17 @@ const App: React.FC = () => {
             'transferChildrenData'
         ) as string;
         const role = e.dataTransfer.getData('transferSectionRole') as string;
+
         // set to first place by initial placement
         dispatch(setConstrSectionRole({ payloadID: 1, role }));
         dispatch(setConstrSectionChildrenData({ payloadID: 1, children }));
+        dispatch(
+            switchConstrSectionHoveredStatus({
+                payloadID: 1,
+                status: false
+            })
+        );
+        dispatch(switchCalcSectionSelectedStatus({ payloadRole: role }));
     };
 
     // /. functions

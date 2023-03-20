@@ -15,9 +15,15 @@ interface propTypes {
     role: string;
     children: IcalcSymbol[];
     isDraggable: boolean;
+    isSelected?: boolean;
 }
 
-const Section: React.FC<propTypes> = ({ role, children, isDraggable }) => {
+const Section: React.FC<propTypes> = ({
+    role,
+    children,
+    isDraggable,
+    isSelected
+}) => {
     const { isConstructorMode } = useAppSelector(
         state => state.constructorSlice
     );
@@ -52,7 +58,9 @@ const Section: React.FC<propTypes> = ({ role, children, isDraggable }) => {
 
     return (
         <div
-            className={`section ${role ? role : ''}`}
+            className={`section ${role ? role : ''} ${
+                isSelected ? 'selected' : ''
+            }`}
             draggable={isDraggable && isConstructorMode}
             onDragStart={onSectionDragStart}
         >

@@ -3,6 +3,7 @@
 // /. imports
 
 .section {
+    opacity: 1;
     cursor: grab;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.06), 0px 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
@@ -54,4 +55,9 @@
         grid-template-rows: 64px;
     }
 
+}
+
+.section.selected {
+    opacity: .5;
+    cursor: url('/assets/icons/cursor_disabled-icon.svg'), no-drop;
 }
