@@ -1,11 +1,12 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 
 import {
-    switchSectionHoveredStatus,
-    setSectionChildrenData,
-    setSectionRole,
+    switchConstructorModeStatus,
+    switchConstrSectionHoveredStatus,
+    setConstrSectionChildrenData,
+    setConstrSectionRole,
     switchPlaceholderVisibleStatus
 } from 'app/slices/constructorSlice';
 
@@ -14,13 +15,6 @@ import Placeholder from 'components/ui/Placeholder/Placeholder';
 import ModeSwitcher from 'components/ui/ModeSwitcher/ModeSwitcher';
 
 import Section from '../Section/Section';
-
-import {
-    displayData,
-    equalData,
-    operatorsData,
-    numbersData
-} from '../../../context/db';
 
 import 'assets/styles/style.scss';
 import './App.css';
@@ -32,9 +26,11 @@ const App: React.FC = () => {
         state => state.calculatorSlice
     );
 
-    const { sectionsData, isPlaceholderVisible } = useAppSelector(
-        state => state.constructorSlice
-    );
+    const {
+        constructorSectionsData,
+        isPlaceholderVisible,
+        calculatorSectionsData
+    } = useAppSelector(state => state.constructorSlice);
 
     const dispatch = useAppDispatch();
     const constructorWrapperRef = useRef<HTMLDivElement>(null!);
@@ -42,22 +38,26 @@ const App: React.FC = () => {
     // /. hooks
 
     const onSectionDragLeave = (payloadID: number): void => {
-        dispatch(switchSectionHoveredStatus({ payloadID, status: false }));
+        dispatch(
+            switchConstrSectionHoveredStatus({ payloadID, status: false })
+        );
     };
 
     const onSectionDragOver = (e: React.DragEvent, payloadID: number): void => {
         e.preventDefault();
-        dispatch(switchSectionHoveredStatus({ payloadID, status: true }));
+        dispatch(switchConstrSectionHoveredStatus({ payloadID, status: true }));
     };
 
     const onSectionDragDrop = (e: React.DragEvent, payloadID: number): void => {
+        console.log('drop');
         const children = e.dataTransfer.getData(
             'transferChildrenData'
         ) as string;
         const role = e.dataTransfer.getData('transferSectionRole') as string;
+        // console.log(role); // section_display
 
-        dispatch(setSectionRole({ payloadID, role }));
-        dispatch(setSectionChildrenData({ payloadID, children }));
+        dispatch(setConstrSectionRole({ payloadID, role }));
+        dispatch(setConstrSectionChildrenData({ payloadID, children }));
     };
 
     const onWrapperDragOver = (e: React.DragEvent): void => {
@@ -71,14 +71,15 @@ const App: React.FC = () => {
 
     const onWrapperDragDrop = (e: React.DragEvent): void => {
         dispatch(switchPlaceholderVisibleStatus({ status: false }));
+        console.log('wrapper drop');
 
         const children = e.dataTransfer.getData(
             'transferChildrenData'
         ) as string;
         const role = e.dataTransfer.getData('transferSectionRole') as string;
         // set to first place by initial placement
-        dispatch(setSectionRole({ payloadID: 1, role }));
-        dispatch(setSectionChildrenData({ payloadID: 1, children }));
+        dispatch(setConstrSectionRole({ payloadID: 1, role }));
+        dispatch(setConstrSectionChildrenData({ payloadID: 1, children }));
     };
 
     // /. functions
@@ -100,22 +101,24 @@ const App: React.FC = () => {
                             <div className="storage__wrapper">
                                 <Section
                                     role="section_display"
-                                    data={displayData}
+                                    data={calculatorSectionsData[0].displayData}
                                     isDraggable
                                 />
                                 <Section
                                     role="section_operators"
-                                    data={operatorsData}
+                                    data={
+                                        calculatorSectionsData[0].operatorsData
+                                    }
                                     isDraggable
                                 />
                                 <Section
                                     role="section_numbers"
-                                    data={numbersData}
+                                    data={calculatorSectionsData[0].numbersData}
                                     isDraggable
                                 />
                                 <Section
                                     role="section_compute"
-                                    data={equalData}
+                                    data={calculatorSectionsData[0].equalData}
                                     isDraggable
                                 />
                             </div>
@@ -142,45 +145,49 @@ const App: React.FC = () => {
                                     <Placeholder />
                                 ) : (
                                     <>
-                                        {sectionsData?.map(section => {
-                                            return (
-                                                <div
-                                                    key={section.id}
-                                                    className={`constructor__section ${
-                                                        section.isHovered
-                                                            ? 'hovered'
-                                                            : ''
-                                                    } ${
-                                                        section.children
-                                                            .length === 0
-                                                            ? 'empty'
-                                                            : ''
-                                                    } `}
-                                                    onDragLeave={() =>
-                                                        onSectionDragLeave(
-                                                            section.id
-                                                        )
-                                                    }
-                                                    onDragOver={e =>
-                                                        onSectionDragOver(
-                                                            e,
-                                                            section.id
-                                                        )
-                                                    }
-                                                    onDrop={e =>
-                                                        onSectionDragDrop(
-                                                            e,
-                                                            section.id
-                                                        )
-                                                    }
-                                                >
-                                                    <Section
-                                                        role={section.role}
-                                                        data={section.children}
-                                                    />
-                                                </div>
-                                            );
-                                        })}
+                                        {constructorSectionsData?.map(
+                                            section => {
+                                                return (
+                                                    <div
+                                                        key={section.id}
+                                                        className={`constructor__section ${
+                                                            section.isHovered
+                                                                ? 'hovered'
+                                                                : ''
+                                                        } ${
+                                                            section.children
+                                                                .length === 0
+                                                                ? 'empty'
+                                                                : ''
+                                                        } `}
+                                                        onDragLeave={() =>
+                                                            onSectionDragLeave(
+                                                                section.id
+                                                            )
+                                                        }
+                                                        onDragOver={e =>
+                                                            onSectionDragOver(
+                                                                e,
+                                                                section.id
+                                                            )
+                                                        }
+                                                        onDrop={e =>
+                                                            onSectionDragDrop(
+                                                                e,
+                                                                section.id
+                                                            )
+                                                        }
+                                                    >
+                                                        <Section
+                                                            role={section.role}
+                                                            data={
+                                                                section.children
+                                                            }
+                                                        />
+                                                    </div>
+                                                );
+                                            }
+                                        )}
                                     </>
                                 )}
                             </div>

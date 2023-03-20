@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { operatorsData, numbersData, equalData, displayData } from 'context/db';
+
 // /. imports
 
 interface IsectionData {
@@ -11,21 +13,30 @@ interface IsectionData {
 
 interface constructorSliceTypes {
     isConstructorMode: boolean;
-    sectionsData: IsectionData[];
+    constructorSectionsData: IsectionData[];
     currentSectionRole: string;
     isPlaceholderVisible: boolean;
+    calculatorSectionsData: any[];
 }
 
 const initialState: constructorSliceTypes = {
     isConstructorMode: true,
-    sectionsData: [
+    constructorSectionsData: [
         { id: 1, isHovered: false, children: [], role: '' },
         { id: 2, isHovered: false, children: [], role: '' },
         { id: 3, isHovered: false, children: [], role: '' },
         { id: 4, isHovered: false, children: [], role: '' }
     ],
     currentSectionRole: '',
-    isPlaceholderVisible: true
+    isPlaceholderVisible: true,
+    calculatorSectionsData: [
+        {
+            displayData,
+            equalData,
+            numbersData,
+            operatorsData
+        }
+    ]
 };
 
 // /. state
@@ -37,14 +48,14 @@ const constructorSlice = createSlice({
         switchConstructorModeStatus(state, action: PayloadAction<boolean>) {
             state.isConstructorMode = action.payload;
         },
-        switchSectionHoveredStatus(
+        switchConstrSectionHoveredStatus(
             state,
             action: PayloadAction<{ payloadID: number; status: boolean }>
         ) {
             const { payloadID, status } = action.payload;
             // /. payload
 
-            const targetSection = state.sectionsData.find(
+            const targetSection = state.constructorSectionsData.find(
                 ({ id }) => id === payloadID
             );
 
@@ -52,7 +63,7 @@ const constructorSlice = createSlice({
                 targetSection.isHovered = status;
             }
         },
-        setSectionChildrenData(
+        setConstrSectionChildrenData(
             state,
             action: PayloadAction<{
                 payloadID: number;
@@ -62,7 +73,7 @@ const constructorSlice = createSlice({
             const { payloadID, children } = action.payload;
             // /. payload
 
-            const targetSection = state.sectionsData.find(
+            const targetSection = state.constructorSectionsData.find(
                 ({ id }) => id === payloadID
             );
 
@@ -71,19 +82,18 @@ const constructorSlice = createSlice({
                 targetSection.children = JSON.parse(children);
             }
         },
-        setSectionRole(
+        setConstrSectionRole(
             state,
             action: PayloadAction<{ payloadID: number; role: string }>
         ) {
             const { payloadID, role } = action.payload;
             // /. payload
 
-            const targetSection = state.sectionsData.find(
+            const targetSection = state.constructorSectionsData.find(
                 ({ id }) => id === payloadID
             );
 
             if (targetSection) {
-                console.log(role);
                 targetSection.role = role;
             }
         },
@@ -101,9 +111,9 @@ const constructorSlice = createSlice({
 
 export const {
     switchConstructorModeStatus,
-    switchSectionHoveredStatus,
-    setSectionChildrenData,
-    setSectionRole,
+    switchConstrSectionHoveredStatus,
+    setConstrSectionChildrenData,
+    setConstrSectionRole,
     switchPlaceholderVisibleStatus
 } = constructorSlice.actions;
 
