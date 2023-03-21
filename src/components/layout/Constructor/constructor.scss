@@ -1,0 +1,57 @@
+@import 'assets/styles/vars';
+
+// /. imports
+
+.constructor {
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        border: 2px dashed $light-blue-color;
+        border-radius: 6px;
+        height: 100%;
+        gap: 12px;
+    }
+
+    &__section {
+
+        .section {
+            height: 100%;
+            box-shadow: none;
+            cursor: url('/assets/icons/cursor_disabled-icon.svg'), no-drop;
+        }
+    }
+
+    &__section.hovered {
+        background-color: $silver-sand-color;
+    }
+
+    &__section.empty {
+        flex: 1 0 calc(100% / 4);
+
+        .section__wrapper {
+            padding: 0;
+        }
+    }
+}
+
+.constructor.empty {
+    .constructor__wrapper {
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 58px;
+        background-color: $white-color;
+        transition: all .25s ease-in;
+        border: 2px dashed $silver-sand-color;
+
+        &:hover {
+            background-color: $alice-blue-color;
+        }
+    }
+
+    .constructor__wrapper.hovered {
+        background-color: $alice-blue-color;
+    }
+}
