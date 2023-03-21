@@ -4,8 +4,6 @@ import { useAppSelector } from 'app/hooks';
 
 import ModeSwitcher from 'components/ui/ModeSwitcher/ModeSwitcher';
 
-import Section from '../Section/Section';
-
 import Calculator from '../Calculator/Calculator';
 import Constructor from '../Constructor/Constructor';
 
@@ -17,10 +15,6 @@ import './App.css';
 const App: React.FC = () => {
     const { a_number, b_number, currentAction } = useAppSelector(
         state => state.calculatorSlice
-    );
-
-    const { isPlaceholderVisible, calculatorSectionsData } = useAppSelector(
-        state => state.constructorSlice
     );
 
     // /. hooks

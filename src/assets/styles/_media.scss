@@ -1,0 +1,23 @@
+@media screen and (max-width: 768px) {
+    .page__controls.page__controls {
+        justify-content: center;
+    }
+
+    .page.page {
+        overflow-y: scroll;
+        display: block;
+    }
+
+    .page__preview.page__preview {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .page__preview {
+        justify-content: center;
+    }
+
+    .calculator.page__calculator {
+        margin: 0 0 56px 0;
+    }
+}
