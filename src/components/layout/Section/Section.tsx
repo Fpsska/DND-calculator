@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
+
+import { resetSection } from 'app/slices/constructorSlice';
 
 import Buttom from 'components/ui/Button/Button';
 import Display from 'components/ui/Display/Display';
@@ -37,6 +39,7 @@ const Section: React.FC<propTypes> = ({
     });
 
     const dispatch = useAppDispatch();
+    const sectionRef = useRef<HTMLDivElement>(null!);
 
     // /. hooks
 
@@ -46,8 +49,6 @@ const Section: React.FC<propTypes> = ({
             JSON.stringify(children)
         );
         e.dataTransfer.setData('transferSectionRole', role);
-
-        // componentAlias: role.substring(role.lastIndexOf('_') + 1);
     };
 
     const isDisplay = role === 'section_display';
@@ -58,8 +59,26 @@ const Section: React.FC<propTypes> = ({
 
     // /. functions
 
+    useEffect(() => {
+        const onSectionDBclick = (): void => {
+            if (!isDisabled && isConstructorMode) {
+                console.log('db click');
+                dispatch(resetSection({ payloadRole: role }));
+            }
+        };
+
+        sectionRef.current?.addEventListener('dblclick', onSectionDBclick);
+        return () => {
+            sectionRef.current?.removeEventListener(
+                'dblclick',
+                onSectionDBclick
+            );
+        };
+    }, [isDisabled, role, isConstructorMode]);
+
     return (
         <div
+            ref={sectionRef}
             className={`section ${role ? role : ''} ${
                 isSelected ? 'selected' : ''
             }`}

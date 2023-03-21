@@ -135,10 +135,12 @@ const Constructor: React.FC<{ additionalClass: string }> = ({
                                         onSectionDragDrop(e, section.id)
                                     }
                                 >
-                                    <Section
-                                        {...section}
-                                        isDisabled={false}
-                                    />
+                                    {section.isFilled && (
+                                        <Section
+                                            {...section}
+                                            isDisabled={false}
+                                        />
+                                    )}
                                 </div>
                             );
                         })}

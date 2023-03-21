@@ -181,6 +181,25 @@ const constructorSlice = createSlice({
             if (targetSection) {
                 targetSection.isFilled = true;
             }
+        },
+        resetSection(state, action: PayloadAction<{ payloadRole: string }>) {
+            const { payloadRole } = action.payload;
+            // /. payload
+
+            const targetCalcSection = state.calculatorSectionsData.find(
+                ({ role }) => role === payloadRole
+            );
+            const targetConstrSection = state.constructorSectionsData.find(
+                ({ role }) => role === payloadRole
+            );
+
+            if (targetCalcSection && targetConstrSection) {
+                targetCalcSection.isDraggable = true;
+                targetCalcSection.isSelected = false;
+                targetConstrSection.isFilled = false;
+                targetConstrSection.role = '';
+                targetConstrSection.children = [];
+            }
         }
     }
 });
@@ -192,7 +211,8 @@ export const {
     setConstrSectionRole,
     switchPlaceholderVisibleStatus,
     switchCalcSectionSelectedStatus,
-    switchConstrFilledStatus
+    switchConstrFilledStatus,
+    resetSection
 } = constructorSlice.actions;
 
 export default constructorSlice.reducer;
