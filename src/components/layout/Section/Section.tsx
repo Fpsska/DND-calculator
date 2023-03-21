@@ -16,13 +16,15 @@ interface propTypes {
     children: IcalcSymbol[];
     isDraggable: boolean;
     isSelected?: boolean;
+    isDisabled: boolean;
 }
 
 const Section: React.FC<propTypes> = ({
     role,
     children,
     isDraggable,
-    isSelected
+    isSelected,
+    isDisabled
 }) => {
     const { isConstructorMode } = useAppSelector(
         state => state.constructorSlice
@@ -65,24 +67,26 @@ const Section: React.FC<propTypes> = ({
             onDragStart={onSectionDragStart}
         >
             <div className="section__wrapper">
-                {
-                    <>
-                        {children?.map((template: IcalcSymbol) => {
-                            if (isDisplay) {
-                                return <Display key={template.id} />;
-                            }
-                            if (isButtons) {
-                                return (
-                                    <Buttom
-                                        key={template.id}
-                                        {...template}
-                                        additionalClass={btnClasses[role]}
-                                    />
-                                );
-                            }
-                        })}
-                    </>
-                }
+                {children?.map((template: IcalcSymbol) => {
+                    if (isDisplay) {
+                        return (
+                            <Display
+                                key={template.id}
+                                isDisabled={isDisabled}
+                            />
+                        );
+                    }
+                    if (isButtons) {
+                        return (
+                            <Buttom
+                                key={template.id}
+                                {...template}
+                                additionalClass={btnClasses[role]}
+                                isDisabled={isDisabled}
+                            />
+                        );
+                    }
+                })}
             </div>
         </div>
     );

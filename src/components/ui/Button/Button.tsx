@@ -16,11 +16,17 @@ interface propTypes {
     symbol: number | string;
     role: string;
     additionalClass?: string;
+    isDisabled: boolean;
 }
 
 // /. interfaces
 
-const Button: React.FC<propTypes> = ({ symbol, role, additionalClass }) => {
+const Button: React.FC<propTypes> = ({
+    symbol,
+    role,
+    additionalClass,
+    isDisabled
+}) => {
     const { isConstructorMode } = useAppSelector(
         state => state.constructorSlice
     );
@@ -59,7 +65,7 @@ const Button: React.FC<propTypes> = ({ symbol, role, additionalClass }) => {
             type="button"
             onClick={e => onButtonClick(e)}
             data-role={role}
-            disabled={isConstructorMode}
+            disabled={isConstructorMode || isDisabled}
         >
             <span>{symbol}</span>
         </button>

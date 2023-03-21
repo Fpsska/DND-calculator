@@ -55,5 +55,6 @@
 
 .section.selected {
     opacity: .5;
+    box-shadow: none;
     cursor: url('/assets/icons/cursor_disabled-icon.svg'), no-drop;
 }

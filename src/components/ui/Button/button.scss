@@ -17,6 +17,14 @@
         cursor: url('/assets/icons/cursor_active-icon.svg'), pointer;
     }
 
+    &:disabled {
+        cursor: url('/assets/icons/cursor_default-icon.svg'), default;
+
+        &:hover {
+            border: 1px solid $platinum-color;
+        }
+    }
+
     span {
         font-size: 14px;
         font-weight: 500;
@@ -35,7 +43,14 @@
 
 .button_compute {
     background-color: $light-blue-color;
-    border: transparent;
+    border-color: transparent;
+
+    &:disabled {
+
+        &:hover {
+            border-color: transparent;
+        }
+    }
 
     span {
         color: $white-color;

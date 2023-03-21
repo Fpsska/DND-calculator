@@ -123,6 +123,7 @@ const App: React.FC = () => {
                                         <Section
                                             key={section.id}
                                             {...section}
+                                            isDisabled={true}
                                         />
                                     );
                                 })}
@@ -184,7 +185,10 @@ const App: React.FC = () => {
                                                             )
                                                         }
                                                     >
-                                                        <Section {...section} />
+                                                        <Section
+                                                            {...section}
+                                                            isDisabled={false}
+                                                        />
                                                     </div>
                                                 );
                                             }

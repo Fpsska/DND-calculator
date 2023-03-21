@@ -6,14 +6,16 @@ import './display.scss';
 
 // /. imports
 
-const Display: React.FC = () => {
+const Display: React.FC<{ isDisabled: boolean }> = ({ isDisabled }) => {
     const { currentValue } = useAppSelector(state => state.calculatorSlice);
+
+    const isPlaceholderValue = isDisabled || !currentValue;
 
     // /. hooks
 
     return (
         <div className="display">
-            <span>{currentValue ? currentValue : '0'}</span>
+            <span>{isPlaceholderValue ? '0' : currentValue}</span>
         </div>
     );
 };
