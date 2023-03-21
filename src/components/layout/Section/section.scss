@@ -20,14 +20,11 @@
 }
 
 .section_display {
-    margin-bottom: 12px;
 
     &__wrapper {}
 }
 
 .section_operators {
-    margin-bottom: 12px;
-
     .section__wrapper {
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(1, 48px);
@@ -35,7 +32,6 @@
 }
 
 .section_numbers {
-    margin-bottom: 12px;
 
     .section__wrapper {
         grid-template-columns: repeat(3, 1fr);

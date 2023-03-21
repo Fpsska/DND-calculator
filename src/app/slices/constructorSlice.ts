@@ -49,10 +49,38 @@ const initialState: constructorSliceTypes = {
         }
     ],
     constructorSectionsData: [
-        { id: 1, isDraggable: false, isHovered: false, children: [], role: '' },
-        { id: 2, isDraggable: false, isHovered: false, children: [], role: '' },
-        { id: 3, isDraggable: false, isHovered: false, children: [], role: '' },
-        { id: 4, isDraggable: false, isHovered: false, children: [], role: '' }
+        {
+            id: 1,
+            isDraggable: false,
+            isHovered: false,
+            isFilled: false,
+            children: [],
+            role: ''
+        },
+        {
+            id: 2,
+            isDraggable: false,
+            isHovered: false,
+            isFilled: false,
+            children: [],
+            role: ''
+        },
+        {
+            id: 3,
+            isDraggable: false,
+            isHovered: false,
+            isFilled: false,
+            children: [],
+            role: ''
+        },
+        {
+            id: 4,
+            isDraggable: false,
+            isHovered: false,
+            isFilled: false,
+            children: [],
+            role: ''
+        }
     ]
 };
 
@@ -138,6 +166,21 @@ const constructorSlice = createSlice({
                 targetSection.isSelected = true;
                 targetSection.isDraggable = false;
             }
+        },
+        switchConstrFilledStatus(
+            state,
+            action: PayloadAction<{ payloadID: number }>
+        ) {
+            const { payloadID } = action.payload;
+            // /. payload
+
+            const targetSection = state.constructorSectionsData.find(
+                ({ id }) => id === payloadID
+            );
+
+            if (targetSection) {
+                targetSection.isFilled = true;
+            }
         }
     }
 });
@@ -148,7 +191,8 @@ export const {
     setConstrSectionChildrenData,
     setConstrSectionRole,
     switchPlaceholderVisibleStatus,
-    switchCalcSectionSelectedStatus
+    switchCalcSectionSelectedStatus,
+    switchConstrFilledStatus
 } = constructorSlice.actions;
 
 export default constructorSlice.reducer;

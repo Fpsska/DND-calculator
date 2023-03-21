@@ -13,6 +13,7 @@ interface Isection {
 
 export interface IconstrSectionData extends Isection {
     isHovered: boolean;
+    isFilled: boolean;
 }
 
 export interface IcalcSectionData extends Isection {

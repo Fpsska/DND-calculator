@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 
 import { useAppSelector, useAppDispatch } from 'app/hooks';
 
@@ -7,7 +7,8 @@ import {
     setConstrSectionChildrenData,
     setConstrSectionRole,
     switchPlaceholderVisibleStatus,
-    switchCalcSectionSelectedStatus
+    switchCalcSectionSelectedStatus,
+    switchConstrFilledStatus
 } from 'app/slices/constructorSlice';
 
 import Placeholder from 'components/ui/Placeholder/Placeholder';
@@ -58,6 +59,7 @@ const App: React.FC = () => {
 
         dispatch(setConstrSectionRole({ payloadID, role }));
         dispatch(setConstrSectionChildrenData({ payloadID, children }));
+        dispatch(switchConstrFilledStatus({ payloadID }));
         dispatch(
             switchConstrSectionHoveredStatus({
                 payloadID,
@@ -77,7 +79,6 @@ const App: React.FC = () => {
     };
 
     const onWrapperDragDrop = (e: React.DragEvent): void => {
-        dispatch(switchPlaceholderVisibleStatus({ status: false }));
         console.log('wrapper drop');
 
         const children = e.dataTransfer.getData(
@@ -86,14 +87,17 @@ const App: React.FC = () => {
         const role = e.dataTransfer.getData('transferSectionRole') as string;
 
         // set to first place by initial placement
+        dispatch(switchPlaceholderVisibleStatus({ status: false }));
         dispatch(setConstrSectionRole({ payloadID: 1, role }));
         dispatch(setConstrSectionChildrenData({ payloadID: 1, children }));
+        dispatch(switchConstrFilledStatus({ payloadID: 1 }));
         dispatch(
             switchConstrSectionHoveredStatus({
                 payloadID: 1,
                 status: false
             })
         );
+        constructorWrapperRef.current.classList.remove('hovered');
         dispatch(switchCalcSectionSelectedStatus({ payloadRole: role }));
     };
 
@@ -173,6 +177,7 @@ const App: React.FC = () => {
                                                             )
                                                         }
                                                         onDrop={e =>
+                                                            !section.isFilled &&
                                                             onSectionDragDrop(
                                                                 e,
                                                                 section.id
