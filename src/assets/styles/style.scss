@@ -34,17 +34,15 @@ body {
     padding: 20px;
 
     &__calculator {
-        margin-right: 56px;
-
         width: 240px;
-        // flex: 1 0 240px;
+        overflow: hidden;
+        margin-right: 56px;
     }
 
     &__constructor {
-        // flex: 0 0 243px;
         width: 243px;
         height: 480px;
-
+        overflow: hidden;
     }
 
     &__controls {

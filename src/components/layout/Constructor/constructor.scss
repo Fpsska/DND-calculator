@@ -7,7 +7,7 @@
     &__wrapper {
         display: flex;
         flex-direction: column;
-        border: 2px dashed $light-blue-color;
+        // border: 2px dashed $light-blue-color;
         border-radius: 6px;
         height: 100%;
         gap: 12px;
@@ -23,11 +23,12 @@
     }
 
     &__section.hovered {
-        background-color: $silver-sand-color;
+        background-color: rgba($color: $silver-sand-color, $alpha: 0.5);
+        border-radius: 6px;
     }
 
     &__section.empty {
-        flex: 1 0 calc(100% / 4);
+        flex: 1 0 min-content;
 
         .section__wrapper {
             padding: 0;
