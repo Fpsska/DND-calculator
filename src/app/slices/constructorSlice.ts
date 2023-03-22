@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { operatorsData, numbersData, equalData, displayData } from 'context/db';
 
-import { IcalcSectionData, IconstrSectionData } from 'types/dbTypes';
+import { IcalcSectionData, IconstrSectionData } from 'types/sectionTypes';
 
 // /. imports
 
