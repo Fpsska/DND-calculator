@@ -11,14 +11,18 @@ import './calculator.scss';
 const Calculator: React.FC<{ additionalClass: string }> = ({
     additionalClass
 }) => {
-    const { calculatorSectionsData } = useAppSelector(
+    const { calculatorSectionsData, isConstructorMode } = useAppSelector(
         state => state.constructorSlice
     );
 
     // /. hooks
 
     return (
-        <div className={`calculator ${additionalClass ? additionalClass : ''}`}>
+        <div
+            className={`calculator ${additionalClass ? additionalClass : ''}  ${
+                !isConstructorMode ? 'hidden' : ''
+            }`}
+        >
             <div className="calculator__wrapper">
                 {calculatorSectionsData.map(section => {
                     return (

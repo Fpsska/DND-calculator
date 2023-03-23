@@ -7,16 +7,16 @@ import { IcalcSectionData, IconstrSectionData } from 'types/sectionTypes';
 // /. imports
 
 interface constructorSliceTypes {
-    isConstructorMode: boolean;
     currentSectionRole: string;
+    isConstructorMode: boolean;
     isPlaceholderVisible: boolean;
     calculatorSectionsData: IcalcSectionData[];
     constructorSectionsData: IconstrSectionData[];
 }
 
 const initialState: constructorSliceTypes = {
-    isConstructorMode: true,
     currentSectionRole: '',
+    isConstructorMode: true,
     isPlaceholderVisible: true,
     calculatorSectionsData: [
         {
@@ -90,6 +90,21 @@ const constructorSlice = createSlice({
     name: 'constructorSlice',
     initialState,
     reducers: {
+        setConstrSectionRole(
+            state,
+            action: PayloadAction<{ payloadID: number; role: string }>
+        ) {
+            const { payloadID, role } = action.payload;
+            // /. payload
+
+            const targetSection = state.constructorSectionsData.find(
+                ({ id }) => id === payloadID
+            );
+
+            if (targetSection) {
+                targetSection.role = role;
+            }
+        },
         switchConstructorModeStatus(state, action: PayloadAction<boolean>) {
             state.isConstructorMode = action.payload;
         },
@@ -125,21 +140,6 @@ const constructorSlice = createSlice({
             if (targetSection) {
                 console.log(JSON.parse(children));
                 targetSection.children = JSON.parse(children);
-            }
-        },
-        setConstrSectionRole(
-            state,
-            action: PayloadAction<{ payloadID: number; role: string }>
-        ) {
-            const { payloadID, role } = action.payload;
-            // /. payload
-
-            const targetSection = state.constructorSectionsData.find(
-                ({ id }) => id === payloadID
-            );
-
-            if (targetSection) {
-                targetSection.role = role;
             }
         },
         switchPlaceholderVisibleStatus(
@@ -205,10 +205,10 @@ const constructorSlice = createSlice({
 });
 
 export const {
+    setConstrSectionRole,
     switchConstructorModeStatus,
     switchConstrSectionHoveredStatus,
     setConstrSectionChildrenData,
-    setConstrSectionRole,
     switchPlaceholderVisibleStatus,
     switchCalcSectionSelectedStatus,
     switchConstrFilledStatus,
