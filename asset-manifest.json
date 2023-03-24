@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Sendsay-Task/static/css/main.b3cd7810.css",
-    "main.js": "/Sendsay-Task/static/js/main.1007b679.js",
+    "main.js": "/Sendsay-Task/static/js/main.a190ba7f.js",
     "static/js/787.37a604d9.chunk.js": "/Sendsay-Task/static/js/787.37a604d9.chunk.js",
     "static/media/cursor_active-icon.svg": "/Sendsay-Task/static/media/cursor_active-icon.2d5af28e66a577815894.svg",
     "static/media/cursor_disabled-icon.svg": "/Sendsay-Task/static/media/cursor_disabled-icon.a49c4ac1d71f3de3590d.svg",
@@ -9,11 +9,11 @@
     "index.html": "/Sendsay-Task/index.html",
     "static/media/cursor_default-icon.svg": "/Sendsay-Task/static/media/cursor_default-icon.c63193dc85bb5135f87b.svg",
     "main.b3cd7810.css.map": "/Sendsay-Task/static/css/main.b3cd7810.css.map",
-    "main.1007b679.js.map": "/Sendsay-Task/static/js/main.1007b679.js.map",
+    "main.a190ba7f.js.map": "/Sendsay-Task/static/js/main.a190ba7f.js.map",
     "787.37a604d9.chunk.js.map": "/Sendsay-Task/static/js/787.37a604d9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b3cd7810.css",
-    "static/js/main.1007b679.js"
+    "static/js/main.a190ba7f.js"
   ]
 }
