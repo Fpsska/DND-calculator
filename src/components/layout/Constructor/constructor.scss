@@ -7,13 +7,14 @@
     &__wrapper {
         display: flex;
         flex-direction: column;
-        // border: 2px dashed $light-blue-color;
         border-radius: 6px;
         height: 100%;
         gap: 12px;
     }
 
     &__section {
+
+        border-top: 1px solid transparent;
 
         .section {
             height: 100%;
@@ -23,9 +24,33 @@
     }
 
     &__section.hovered {
-        background-color: rgba($color: $silver-sand-color, $alpha: 0.5);
-        border-radius: 6px;
+        border-radius: 0 0 6px 6px;
+        border-color: $light-blue-color;
+
+        position: relative;
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            width: 5px;
+            height: 5px;
+            background-color: $light-blue-color;
+            transform: rotate(-45deg);
+        }
+
+        &::before {
+            left: 0;
+            right: auto;
+        }
+
+        &::after {
+            right: 0;
+            left: auto;
+        }
     }
+
 
     &__section.empty {
         flex: 1 0 min-content;

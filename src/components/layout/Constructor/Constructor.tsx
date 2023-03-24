@@ -37,9 +37,17 @@ const Constructor: React.FC<{ additionalClass: string }> = ({
         );
     };
 
-    const onSectionDragOver = (e: React.DragEvent, payloadID: number): void => {
+    const onSectionDragOver = (
+        e: React.DragEvent,
+        payloadID: number,
+        isFilled: boolean
+    ): void => {
         e.preventDefault();
-        dispatch(switchConstrSectionHoveredStatus({ payloadID, status: true }));
+        if (!isFilled) {
+            dispatch(
+                switchConstrSectionHoveredStatus({ payloadID, status: true })
+            );
+        }
     };
 
     const onSectionDragDrop = (e: React.DragEvent, payloadID: number): void => {
@@ -128,7 +136,11 @@ const Constructor: React.FC<{ additionalClass: string }> = ({
                                         onSectionDragLeave(section.id)
                                     }
                                     onDragOver={e =>
-                                        onSectionDragOver(e, section.id)
+                                        onSectionDragOver(
+                                            e,
+                                            section.id,
+                                            section.isFilled
+                                        )
                                     }
                                     onDrop={e =>
                                         !section.isFilled &&
