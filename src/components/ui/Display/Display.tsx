@@ -2,6 +2,8 @@ import React from 'react';
 
 import { useAppSelector } from 'app/hooks';
 
+import { makeNumberRounding } from 'utils/helpers/makeNumberRounding';
+
 import './display.scss';
 
 // /. imports
@@ -15,7 +17,11 @@ const Display: React.FC<{ isDisabled: boolean }> = ({ isDisabled }) => {
 
     return (
         <div className="display">
-            <span>{isPlaceholderValue ? '0' : currentValue}</span>
+            <span>
+                {isPlaceholderValue
+                    ? '0'
+                    : makeNumberRounding(currentValue, 17)}
+            </span>
         </div>
     );
 };
