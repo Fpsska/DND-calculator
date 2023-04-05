@@ -1,9 +1,9 @@
 {
-  "name": "sendsay-task",
+  "name": "dnd-calculator",
   "version": "0.1.0",
   "private": true,
   "author": "Fpsska",
-  "homepage": "https://fpsska.github.io/Sendsay-Task/",
+  "homepage": "https://fpsska.github.io/DND-calculator/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
