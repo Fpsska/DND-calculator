@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/Sendsay-Task/static/css/main.b3cd7810.css",
-    "main.js": "/Sendsay-Task/static/js/main.a190ba7f.js",
-    "static/js/787.37a604d9.chunk.js": "/Sendsay-Task/static/js/787.37a604d9.chunk.js",
-    "static/media/cursor_active-icon.svg": "/Sendsay-Task/static/media/cursor_active-icon.2d5af28e66a577815894.svg",
-    "static/media/cursor_disabled-icon.svg": "/Sendsay-Task/static/media/cursor_disabled-icon.a49c4ac1d71f3de3590d.svg",
-    "static/media/add_file-icon.svg": "/Sendsay-Task/static/media/add_file-icon.ff2a0d409c14819260b08f919e659b64.svg",
-    "index.html": "/Sendsay-Task/index.html",
-    "static/media/cursor_default-icon.svg": "/Sendsay-Task/static/media/cursor_default-icon.c63193dc85bb5135f87b.svg",
-    "main.b3cd7810.css.map": "/Sendsay-Task/static/css/main.b3cd7810.css.map",
-    "main.a190ba7f.js.map": "/Sendsay-Task/static/js/main.a190ba7f.js.map",
-    "787.37a604d9.chunk.js.map": "/Sendsay-Task/static/js/787.37a604d9.chunk.js.map"
+    "main.css": "/DND-calculator/static/css/main.a3054f1b.css",
+    "main.js": "/DND-calculator/static/js/main.9ddc8675.js",
+    "static/js/787.8cbca4c4.chunk.js": "/DND-calculator/static/js/787.8cbca4c4.chunk.js",
+    "static/media/cursor_active-icon.svg": "/DND-calculator/static/media/cursor_active-icon.fad9918befa69d942f08.svg",
+    "static/media/cursor_disabled-icon.svg": "/DND-calculator/static/media/cursor_disabled-icon.10f7eec7ae264963ed7f.svg",
+    "static/media/add_file-icon.svg": "/DND-calculator/static/media/add_file-icon.7ceecf6a868baded8dc04648cebe55c3.svg",
+    "index.html": "/DND-calculator/index.html",
+    "static/media/cursor_default-icon.svg": "/DND-calculator/static/media/cursor_default-icon.c9ce17f6329e9720954d.svg",
+    "main.a3054f1b.css.map": "/DND-calculator/static/css/main.a3054f1b.css.map",
+    "main.9ddc8675.js.map": "/DND-calculator/static/js/main.9ddc8675.js.map",
+    "787.8cbca4c4.chunk.js.map": "/DND-calculator/static/js/787.8cbca4c4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b3cd7810.css",
-    "static/js/main.a190ba7f.js"
+    "static/css/main.a3054f1b.css",
+    "static/js/main.9ddc8675.js"
   ]
 }
